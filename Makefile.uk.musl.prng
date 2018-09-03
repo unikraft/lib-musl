@@ -1,0 +1,11 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/__rand48_step.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/__seed48.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/drand48.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/lcong48.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/lrand48.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/mrand48.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/rand.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/rand_r.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/random.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/seed48.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/srand48.c

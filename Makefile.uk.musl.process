@@ -1,0 +1,42 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/execl.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/execle.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/execlp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/execv.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/execve.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/execvp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/fexecve.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/fork.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawn.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addclose.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_adddup2.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addopen.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_destroy.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_init.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_destroy.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_getflags.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_getpgroup.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_getsigdefault.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_getsigmask.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_init.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_sched.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setflags.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setpgroup.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigdefault.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigmask.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/posix_spawnp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/system.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/wait.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/waitid.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/waitpid.c
+
+ifeq (x86_32,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/i386/vfork.s|i386
+else ifeq (x86_64,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/x86_64/vfork.s|x86_64
+else
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/vfork.c
+endif
+
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/s390x/vfork.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/sh/vfork.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/process/x32/vfork.s

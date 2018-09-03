@@ -1,0 +1,13 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/ftok.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/msgctl.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/msgget.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/msgrcv.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/msgsnd.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/semctl.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/semget.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/semop.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/semtimedop.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/shmat.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/shmctl.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/shmdt.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ipc/shmget.c

@@ -1,0 +1,2 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/errno/__errno_location.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/errno/strerror.c

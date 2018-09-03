@@ -1,0 +1,21 @@
+commit a6e720b25da530ec2a2778dc247cbbd7e6f81640
+Author: Felipe Huici <felipe.huici@neclab.eu>
+Date:   Thu Sep 6 15:53:07 2018 +0200
+
+    prevent redeclaration compiler error
+    
+    Signed-off-by: Felipe Huici <felipe.huici@neclab.eu>
+
+diff --git a/include/strings.h b/include/strings.h
+index db0960b4..d4cf149a 100644
+--- a/include/strings.h
++++ b/include/strings.h
+@@ -16,7 +16,7 @@ extern "C" {
+ int bcmp (const void *, const void *, size_t);
+ void bcopy (const void *, void *, size_t);
+ void bzero (void *, size_t);
+-char *index (const char *, int);
++//char *index (const char *, int);
+ char *rindex (const char *, int);
+ #endif
+ 

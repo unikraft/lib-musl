@@ -1,0 +1,3 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/aio/aio.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/aio/aio_suspend.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/aio/lio_listio.c

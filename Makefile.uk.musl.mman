@@ -1,0 +1,13 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/madvise.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mincore.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mlock.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mlockall.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mmap.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mprotect.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mremap.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/msync.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/munlock.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/munlockall.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/munmap.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/posix_madvise.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/shm_open.c

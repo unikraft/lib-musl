@@ -1,0 +1,10 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_close.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_getattr.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_notify.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_open.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_receive.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_send.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_setattr.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_timedreceive.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_timedsend.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_unlink.c

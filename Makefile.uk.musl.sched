@@ -1,0 +1,10 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/affinity.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_cpucount.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_get_priority_max.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_getcpu.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_getparam.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_getscheduler.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_rr_get_interval.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_setparam.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_setscheduler.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_yield.c

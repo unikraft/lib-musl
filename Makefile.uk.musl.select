@@ -1,0 +1,3 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/select/poll.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/select/pselect.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/select/select.c

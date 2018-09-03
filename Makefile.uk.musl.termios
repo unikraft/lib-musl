@@ -1,0 +1,10 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/cfgetospeed.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/cfmakeraw.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/cfsetospeed.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcdrain.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcflow.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcflush.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcgetattr.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcgetsid.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcsendbreak.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcsetattr.c

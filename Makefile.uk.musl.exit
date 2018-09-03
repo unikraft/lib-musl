@@ -1,0 +1,8 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/_Exit.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/abort.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/arm/__aeabi_atexit.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/assert.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/at_quick_exit.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/atexit.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/exit.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/exit/quick_exit.c

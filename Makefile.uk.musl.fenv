@@ -1,0 +1,32 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/__flt_rounds.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/fegetexceptflag.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/feholdexcept.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/fesetexceptflag.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/fesetround.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/feupdateenv.c
+
+ifeq (arm,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/arm/fenv-hf.S|arm
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/arm/fenv.c|arm
+else ifeq (x86_32,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/i386/fenv.s|x86_32
+else ifeq (x86_64,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/x86_64/fenv.s|x86_64
+else
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/fenv.c
+endif
+
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/aarch64/fenv.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/mips/fenv-sf.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/mips/fenv.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/mips64/fenv-sf.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/mips64/fenv.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/mipsn32/fenv-sf.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/mipsn32/fenv.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/powerpc/fenv-sf.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/powerpc/fenv.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/powerpc64/fenv.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/s390x/fenv.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/sh/fenv-nofpu.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/sh/fenv.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fenv/x32/fenv.s

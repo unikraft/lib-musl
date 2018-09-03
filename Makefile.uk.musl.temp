@@ -1,0 +1,7 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/__randname.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkdtemp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkostemp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkostemps.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkstemp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkstemps.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mktemp.c

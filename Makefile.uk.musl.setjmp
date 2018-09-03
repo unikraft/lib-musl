@@ -1,0 +1,36 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/setjmp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/longjmp.c
+
+ifeq (arm,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/arm/longjmp.s|arm
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/arm/setjmp.s|arm
+else ifeq (x86_32,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/i386/longjmp.s|i386
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/i386/setjmp.s|i386
+else ifeq (x86_64,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/x86_64/longjmp.s|x86_64
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/x86_64/setjmp.s|x86_64
+endif
+
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/aarch64/longjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/aarch64/setjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/microblaze/longjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/microblaze/setjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/mips/longjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/mips/setjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/mips64/longjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/mips64/setjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/mipsn32/longjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/mipsn32/setjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/or1k/longjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/or1k/setjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/powerpc/longjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/powerpc/setjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/powerpc64/longjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/powerpc64/setjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/s390x/longjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/s390x/setjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/sh/longjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/sh/setjmp.S
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/x32/longjmp.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/setjmp/x32/setjmp.s

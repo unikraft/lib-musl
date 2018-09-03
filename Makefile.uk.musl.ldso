@@ -1,0 +1,35 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/__dlsym.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dl_iterate_phdr.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dladdr.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dlclose.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dlerror.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dlinfo.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dlopen.c
+
+ifeq (arm,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/arm/dlsym.s|arm
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/arm/find_exidx.c|arm
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/tlsdesc.c
+else ifeq (x86_32,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/i386/dlsym.s|x86_32
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/i386/tlsdesc.s|x86_32
+else ifeq (x86_64,$(CONFIG_UK_ARCH))
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/x86_64/dlsym.s|x86_64
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/x86_64/tlsdesc.s|x86_64
+else
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/tlsdesc.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/dlsym.c
+endif
+
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/aarch64/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/aarch64/tlsdesc.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/microblaze/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/mips/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/mips64/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/mipsn32/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/or1k/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/powerpc/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/powerpc64/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/s390x/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/sh/dlsym.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/ldso/x32/dlsym.s

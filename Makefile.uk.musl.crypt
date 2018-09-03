@@ -1,0 +1,8 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_blowfish.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_des.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_md5.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_r.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_sha256.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_sha512.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/encrypt.c

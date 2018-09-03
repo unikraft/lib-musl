@@ -1,0 +1,32 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/floatscan.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/intscan.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/libc.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/procfdname.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/shgetc.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/syscall.c|internal
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/syscall_ret.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/vdso.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/version.c
+
+#ifeq (arm,$(CONFIG_UK_ARCH))
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/arm/syscall.s|arm
+#else ifeq (x86_32,$(CONFIG_UK_ARCH))
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/i386/syscall.s|i386
+#else ifeq (x86_64,$(CONFIG_UK_ARCH))
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/x86_64/syscall.s|x86_64
+#endif
+
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/aarch64/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/microblaze/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/mips/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/mips64/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/mipsn32/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/or1k/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/powerpc/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/powerpc64/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/s390x/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/sh/__shcall.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/sh/syscall.s
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/internal/x32/syscall.s|x32
+
+

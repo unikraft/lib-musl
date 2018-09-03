@@ -1,0 +1,9 @@
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/__brk.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/aligned_alloc.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/calloc.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/expand_heap.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/lite_malloc.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/malloc.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/malloc_usable_size.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/memalign.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/posix_memalign.c

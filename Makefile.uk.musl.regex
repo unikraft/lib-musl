@@ -1,0 +1,6 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/fnmatch.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/glob.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/regcomp.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/regerror.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/regexec.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/tre-mem.c

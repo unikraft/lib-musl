@@ -1,0 +1,5 @@
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/hsearch.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/insque.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/lsearch.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/tdestroy.c
+LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/tsearch_avl.c
