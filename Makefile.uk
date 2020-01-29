@@ -122,7 +122,6 @@ CXXFLAGS += $(LIBMUSL_HEADER_FLAGS-y)
 # OS dependencies code - Glue between Unicore and musl
 ################################################################################
 LIBMUSL_SRCS-y += $(LIBMUSL_BASE)/mem.c
-LIBMUSL_SRCS-y += $(LIBMUSL_BASE)/syscall.c
 
 ################################################################################
 # musl code -- one external Makefile per sub-lib
