@@ -67,27 +67,26 @@ CXXINCLUDES-y  += $(LIBMUSL_GLOBAL_INCLUDES-y)
 ################################################################################
 # Musl-specific Targets
 ################################################################################
-# generate alltypes.h through musl sed script			      
+# generate alltypes.h through musl sed script
 $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
-			      $(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
-			      sed -f $(LIBMUSL)/tools/mkalltypes.sed \
-			      $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h.in \
-			      $(LIBMUSL)/include/alltypes.h.in > $@ && \
-			      $(TOUCH) $@)
+	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
+		sed -f $(LIBMUSL)/tools/mkalltypes.sed \
+		$(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h.in \
+		$(LIBMUSL)/include/alltypes.h.in > $@ && \
+		$(TOUCH) $@)
 
 # generate syscall.h
 $(LIBMUSL)/arch/$(ARCH)/bits/syscall.h: $(LIBMUSL)/arch/$(ARCH)/bits/syscall.h.in
-			      $(call verbose_cmd,CONFIGURE,libmusl: $@,\
-			      cp $< $@ && \
-			      sed -n -e s/__NR_/SYS_/p < $< >> $@ && \
-			      $(TOUCH) $@)
+	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
+		cp $< $@ && \
+		sed -n -e s/__NR_/SYS_/p < $< >> $@ && \
+		$(TOUCH) $@)
 
 # generate version.h
 $(LIBMUSL)/src/internal/version.h: 
-			      $(call verbose_cmd,CONFIGURE,libmusl: $@,\
-			      printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ \
-			      $(TOUCH) $@)
-
+	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
+		printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ \
+		$(TOUCH) $@)
 
 UK_PREPARE += $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h
 UK_PREPARE += $(LIBMUSL)/arch/$(ARCH)/bits/syscall.h
