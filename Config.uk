@@ -1,10 +1,9 @@
 # hidden
-config LIBMUSL
-	bool
-	default n
-
 menuconfig LIBMUSL
-	bool "musl - A C standard library"
-	default n
-	select HAVE_LIBC
-	select LIBUCALLOC
+        bool "musl - A C standard library"
+        default n
+        select HAVE_LIBC
+        select LIBKUALLOC
+        select LIBSYSCALL_SHIM
+        select LIBVFSCORE
+        select LIBPOSIX_PROCESS
