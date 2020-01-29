@@ -99,19 +99,24 @@ LIBMUSL_CLEAN += $(LIBMUSL)/src/internal/version.h
 ################################################################################
 # Global flags
 ################################################################################
-LIBMUSL_CFLAGS-y       += -D_POSIX_SOURCE -D_BSD_SOURCE
+LIBMUSL_HEADER_FLAGS-y += -Wno-unused-parameter -Wno-unused-value \
+			  -Wno-parentheses
+LIBMUSL_CFLAGS-y += -Wno-implicit-fallthrough
+LIBMUSL_CFLAGS-y += -Wno-restrict
+LIBMUSL_CFLAGS-y += -Wno-unused-but-set-variable
+LIBMUSL_CFLAGS-y += -Wno-sign-compare
+LIBMUSL_CFLAGS-y += -Wno-empty-body
+LIBMUSL_CFLAGS-y += -Wno-maybe-uninitialized
+LIBMUSL_CFLAGS-y += -Wno-unknown-pragmas
+LIBMUSL_CFLAGS-y += -Wno-missing-braces
+LIBMUSL_CFLAGS-y += -Wno-cast-function-type
+LIBMUSL_CFLAGS-y += -Wno-format-contains-nul
+LIBMUSL_CFLAGS-y += -Wno-type-limits
+LIBMUSL_CFLAGS-y += $(LIBMUSL_HEADER_FLAGS-y)
 
-# Suppress some warnings to make the build process look neater
-SUPPRESS_FLAGS += -Wno-unused-parameter -Wno-unused-variable -Wno-nonnull	\
--Wno-unused-but-set-variable -Wno-unused-label -Wno-char-subscripts		\
--Wno-unused-function -Wno-missing-field-initializers -Wno-uninitialized		\
--Wno-array-bounds -Wno-maybe-uninitialized -Wno-pointer-sign -Wno-unused-value	\
--Wno-unused-macros -Wno-parentheses -Wno-implicit-function-declaration		\
--Wno-missing-braces -Wno-endif-labels -Wno-unused-but-set-variable		\
--Wno-implicit-function-declaration -Wno-type-limits -Wno-sign-compare
-
-LIBMUSL_CFLAGS-y   += $(SUPPRESS_FLAGS)
-LIBMUSL_CXXFLAGS-y += $(SUPPRESS_FLAGS)
+# We globally switch off warnings that are caused by musl's public headers
+CFLAGS += $(LIBMUSL_HEADER_FLAGS-y)
+CXXFLAGS += $(LIBMUSL_HEADER_FLAGS-y)
 
 ################################################################################
 # OS dependencies code - Glue between Unicore and musl
