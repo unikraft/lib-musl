@@ -36,6 +36,10 @@
 # Library registration
 ################################################################################
 $(eval $(call addlib_s,libmusl,$(CONFIG_LIBMUSL)))
+# Additionally, build glue code. This is put into a separate library so that we
+# can apply a thick helping of warning suppressions to musl, which throws
+# lots of compilation warnings, but keep our glue code up to our standards.
+$(eval $(call addlib_s,libmuslglue,$(CONFIG_LIBMUSL)))
 
 ################################################################################
 # Sources
@@ -121,7 +125,7 @@ CXXFLAGS += $(LIBMUSL_HEADER_FLAGS-y)
 ################################################################################
 # OS dependencies code - Glue between Unicore and musl
 ################################################################################
-LIBMUSL_SRCS-y += $(LIBMUSL_BASE)/mem.c
+LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/mem.c
 
 ################################################################################
 # musl code -- one external Makefile per sub-lib
