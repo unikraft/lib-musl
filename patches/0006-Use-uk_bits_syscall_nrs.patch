@@ -1,0 +1,26 @@
+From 0707c3af258a7859bd91e3efa468d39a5a151a3f Mon Sep 17 00:00:00 2001
+From: Gaulthier Gain <gaulthier.gain@uliege.be>
+Date: Sat, 25 Jan 2020 14:18:41 +0100
+Subject: [PATCH] Use uk/bits/syscall_nrs.h instead of musl internal
+ bits/syscall.h
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+---
+ include/sys/syscall.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/sys/syscall.h b/include/sys/syscall.h
+index 24987dd..918de59 100644
+--- a/include/sys/syscall.h
++++ b/include/sys/syscall.h
+@@ -1,6 +1,6 @@
+ #ifndef _SYS_SYSCALL_H
+ #define _SYS_SYSCALL_H
+
+-#include <bits/syscall.h>
++#include <uk/bits/syscall_nrs.h>
+
+ #endif
+--
+2.20.1
+
