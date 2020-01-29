@@ -34,6 +34,7 @@
 
 #include <sys/types.h>
 #include <uk/alloc.h>
+#include <sys/mman.h>
 
 /* Forward to libucallocator calls */
 void *malloc(size_t size)
@@ -65,4 +66,9 @@ void *memalign(size_t align, size_t size)
 void free(void *ptr)
 {
 	return uk_free(uk_alloc_get_default(), ptr);
+}
+
+int mprotect(void *addr __unused, size_t len __unused, int prot __unused)
+{
+	return 0;
 }
