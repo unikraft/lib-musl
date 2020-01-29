@@ -68,9 +68,11 @@ CXXINCLUDES-y  += $(LIBMUSL_GLOBAL_INCLUDES-y)
 # Musl-specific Targets
 ################################################################################
 # generate alltypes.h through musl sed script			      
-$(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h:
-			      $(call verbose_cmd,CONFIGURE,libmusl: $@,\
-			      sed -f $(LIBMUSL)/tools/mkalltypes.sed $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h.in $(LIBMUSL)/include/alltypes.h.in > $@ && \
+$(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
+			      $(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
+			      sed -f $(LIBMUSL)/tools/mkalltypes.sed \
+			      $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h.in \
+			      $(LIBMUSL)/include/alltypes.h.in > $@ && \
 			      $(TOUCH) $@)
 
 # generate syscall.h
