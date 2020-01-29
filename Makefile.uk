@@ -55,13 +55,14 @@ LIBMUSL=$(LIBMUSL_ORIGIN)/$(LIBMUSL_SUBDIR)/
 ################################################################################
 # Library includes
 ################################################################################
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL_BASE)/include
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL)/include
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL)/arch/$(ARCH)
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL)/arch/generic
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL)/src/internal
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL)/src/ctype
-CINCLUDES-$(CONFIG_LIBMUSL)   += -I$(LIBMUSL)/src/dirent
+LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/$(ARCH)
+LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/generic
+LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/src/internal
+LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/include
+LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL_BASE)/include
+
+CINCLUDES-y    += $(LIBMUSL_GLOBAL_INCLUDES-y)
+CXXINCLUDES-y  += $(LIBMUSL_GLOBAL_INCLUDES-y)
 
 ################################################################################
 # Musl-specific Targets
