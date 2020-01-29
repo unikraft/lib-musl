@@ -1,0 +1,151 @@
+From 3a8c96c79ce087a8edb8e3f4c6f02615da5bba4c Mon Sep 17 00:00:00 2001
+From: Gaulthier Gain <gaulthier.gain@uliege.be>
+Date: Sat, 25 Jan 2020 15:37:55 +0100
+Subject: [PATCH] Use syscall_shim layer instead of musl internal syscalls
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+---
+ src/internal/syscall.h | 98 +++++++++++-------------------------------
+ 1 file changed, 25 insertions(+), 73 deletions(-)
+
+diff --git a/src/internal/syscall.h b/src/internal/syscall.h
+index 6d378a8..655e99a 100644
+--- a/src/internal/syscall.h
++++ b/src/internal/syscall.h
+@@ -1,8 +1,8 @@
+-#ifndef _INTERNAL_SYSCALL_H
+-#define _INTERNAL_SYSCALL_H
++#ifndef UK_MUSL_SYSCALL
++#define UK_MUSL_SYSCALL
+
+ #include <sys/syscall.h>
+-#include "syscall_arch.h"
++#include <uk/syscall.h>
+
+ #ifndef SYSCALL_RLIM_INFINITY
+ #define SYSCALL_RLIM_INFINITY (~0ULL)
+@@ -12,69 +12,40 @@
+ #define SYSCALL_MMAP2_UNIT 4096ULL
+ #endif
+
+-#ifndef __SYSCALL_LL_PRW
+-#define __SYSCALL_LL_PRW(x) __SYSCALL_LL_O(x)
+-#endif
+-
+-#ifndef __scc
+-#define __scc(X) ((long) (X))
+-typedef long syscall_arg_t;
+-#endif
++typedef uk_syscall_arg_t syscall_arg_t;
+
+ __attribute__((visibility("hidden")))
+-long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
+-	__syscall_cp(syscall_arg_t, syscall_arg_t, syscall_arg_t, syscall_arg_t,
+-	             syscall_arg_t, syscall_arg_t, syscall_arg_t);
+-
+-#ifdef SYSCALL_NO_INLINE
+-#define __syscall0(n) (__syscall)(n)
+-#define __syscall1(n,a) (__syscall)(n,__scc(a))
+-#define __syscall2(n,a,b) (__syscall)(n,__scc(a),__scc(b))
+-#define __syscall3(n,a,b,c) (__syscall)(n,__scc(a),__scc(b),__scc(c))
+-#define __syscall4(n,a,b,c,d) (__syscall)(n,__scc(a),__scc(b),__scc(c),__scc(d))
+-#define __syscall5(n,a,b,c,d,e) (__syscall)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e))
+-#define __syscall6(n,a,b,c,d,e,f) (__syscall)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f))
+-#else
+-#define __syscall1(n,a) __syscall1(n,__scc(a))
+-#define __syscall2(n,a,b) __syscall2(n,__scc(a),__scc(b))
+-#define __syscall3(n,a,b,c) __syscall3(n,__scc(a),__scc(b),__scc(c))
+-#define __syscall4(n,a,b,c,d) __syscall4(n,__scc(a),__scc(b),__scc(c),__scc(d))
+-#define __syscall5(n,a,b,c,d,e) __syscall5(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e))
+-#define __syscall6(n,a,b,c,d,e,f) __syscall6(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f))
+-#endif
+-#define __syscall7(n,a,b,c,d,e,f,g) (__syscall)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f),__scc(g))
++long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
++	__syscall_cp(uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t,
++	             uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t);
+
+-#define __SYSCALL_NARGS_X(a,b,c,d,e,f,g,h,n,...) n
+-#define __SYSCALL_NARGS(...) __SYSCALL_NARGS_X(__VA_ARGS__,7,6,5,4,3,2,1,0,)
+-#define __SYSCALL_CONCAT_X(a,b) a##b
+-#define __SYSCALL_CONCAT(a,b) __SYSCALL_CONCAT_X(a,b)
+-#define __SYSCALL_DISP(b,...) __SYSCALL_CONCAT(b,__SYSCALL_NARGS(__VA_ARGS__))(__VA_ARGS__)
++#define __syscall(...) uk_syscall(__VA_ARGS__)
++#define syscall(...) __syscall_ret(uk_syscall(__VA_ARGS__))
+
+-#define __syscall(...) __SYSCALL_DISP(__syscall,__VA_ARGS__)
+-#define syscall(...) __syscall_ret(__syscall(__VA_ARGS__))
++#define __syscall_cp(...) uk_syscall(__VA_ARGS__)
++#define syscall_cp(...) __syscall_ret(uk_syscall(__VA_ARGS__))
+
+-#define socketcall __socketcall
+-#define socketcall_cp __socketcall_cp
+-
+-#define __syscall_cp0(n) (__syscall_cp)(n,0,0,0,0,0,0)
+-#define __syscall_cp1(n,a) (__syscall_cp)(n,__scc(a),0,0,0,0,0)
+-#define __syscall_cp2(n,a,b) (__syscall_cp)(n,__scc(a),__scc(b),0,0,0,0)
+-#define __syscall_cp3(n,a,b,c) (__syscall_cp)(n,__scc(a),__scc(b),__scc(c),0,0,0)
+-#define __syscall_cp4(n,a,b,c,d) (__syscall_cp)(n,__scc(a),__scc(b),__scc(c),__scc(d),0,0)
+-#define __syscall_cp5(n,a,b,c,d,e) (__syscall_cp)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),0)
+-#define __syscall_cp6(n,a,b,c,d,e,f) (__syscall_cp)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f))
+-
+-#define __syscall_cp(...) __SYSCALL_DISP(__syscall_cp,__VA_ARGS__)
+-#define syscall_cp(...) __syscall_ret(__syscall_cp(__VA_ARGS__))
++#define __sys_open(...) open(__VA_ARGS__)
++#define sys_open(...) open(__VA_ARGS__)
+
+ #ifndef SYSCALL_USE_SOCKETCALL
+ #define __socketcall(nm,a,b,c,d,e,f) syscall(SYS_##nm, a, b, c, d, e, f)
+ #define __socketcall_cp(nm,a,b,c,d,e,f) syscall_cp(SYS_##nm, a, b, c, d, e, f)
+ #else
+ #define __socketcall(nm,a,b,c,d,e,f) syscall(SYS_socketcall, __SC_##nm, \
+-    ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
++                                                                                              ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
+ #define __socketcall_cp(nm,a,b,c,d,e,f) syscall_cp(SYS_socketcall, __SC_##nm, \
+-    ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
++                                                                                                    ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
++#endif
++
++#define socketcall __socketcall
++#define socketcall_cp __socketcall_cp
++
++#if (defined CONFIG_ARCH_X86_64)
++#define __SYSCALL_LL_E(x) (x)
++#define __SYSCALL_LL_O(x) (x)
++#else
++#error "Missing macro for architecture"
+ #endif
+
+ /* fixup legacy 16-bit junk */
+@@ -120,7 +91,6 @@ long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
+ #define SYS_setfsgid SYS_setfsgid32
+ #endif
+
+-
+ /* fixup legacy 32-bit-vs-lfs64 junk */
+
+ #ifdef SYS_fcntl64
+@@ -226,22 +196,4 @@ long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
+ #define __SC_recvmmsg    19
+ #define __SC_sendmmsg    20
+
+-#ifdef SYS_open
+-#define __sys_open2(x,pn,fl) __syscall2(SYS_open, pn, (fl)|O_LARGEFILE)
+-#define __sys_open3(x,pn,fl,mo) __syscall3(SYS_open, pn, (fl)|O_LARGEFILE, mo)
+-#define __sys_open_cp2(x,pn,fl) __syscall_cp2(SYS_open, pn, (fl)|O_LARGEFILE)
+-#define __sys_open_cp3(x,pn,fl,mo) __syscall_cp3(SYS_open, pn, (fl)|O_LARGEFILE, mo)
+-#else
+-#define __sys_open2(x,pn,fl) __syscall3(SYS_openat, AT_FDCWD, pn, (fl)|O_LARGEFILE)
+-#define __sys_open3(x,pn,fl,mo) __syscall4(SYS_openat, AT_FDCWD, pn, (fl)|O_LARGEFILE, mo)
+-#define __sys_open_cp2(x,pn,fl) __syscall_cp3(SYS_openat, AT_FDCWD, pn, (fl)|O_LARGEFILE)
+-#define __sys_open_cp3(x,pn,fl,mo) __syscall_cp4(SYS_openat, AT_FDCWD, pn, (fl)|O_LARGEFILE, mo)
+-#endif
+-
+-#define __sys_open(...) __SYSCALL_DISP(__sys_open,,__VA_ARGS__)
+-#define sys_open(...) __syscall_ret(__sys_open(__VA_ARGS__))
+-
+-#define __sys_open_cp(...) __SYSCALL_DISP(__sys_open_cp,,__VA_ARGS__)
+-#define sys_open_cp(...) __syscall_ret(__sys_open_cp(__VA_ARGS__))
+-
+ #endif
+--
+2.20.1
