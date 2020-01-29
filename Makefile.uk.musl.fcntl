@@ -1,6 +1,6 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/creat.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/fcntl.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/open.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/openat.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fadvise.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/creat.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/fcntl.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/open.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/openat.c
+#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fadvise.c
 LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fallocate.c
