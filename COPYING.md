@@ -1,10 +1,10 @@
 License
 =======
 
-Unikraft newlib wrappers
+Unikraft musl wrappers
 ------------------------
 
-This repository contains wrapper code to build newlib with Unikraft.  The code
+This repository contains wrapper code to build musl with Unikraft. The code
 is published as a mixture of BSD and MIT licences; each C code file in
 this repository should declare who is the copyright owner and under which terms
 and conditions the code is licensed. If such a licence note is missing, the
@@ -37,10 +37,10 @@ following copyright notice will apply:
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 
-newlib source code
+musl source code
 ------------------
 
-During building, the build system will download the newlib source code and
-build source code from the `newlib/libc` and `newlib/libm` directories. The
-code in this directories has a variety of licences, the details of which are
-explained in the `README.newlib` file in the root directory of the newlib code.
+During building, the build system will download the musl source code and
+build source code from the `musl` directory. musl as a whole is licensed
+under the following standard MIT license. Further information can be found
+in the `COPYRIGHT` file in the root directory of the musl code.
