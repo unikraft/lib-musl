@@ -1,0 +1,25 @@
+From 235b3d8240fbc99782f2fb8449786f519fcb3bde Mon Sep 17 00:00:00 2001
+From: gaulthier gain <gaulthier.gain@uliege.be>
+Date: Fri, 28 Feb 2020 17:05:28 +0000
+Subject: [UNIKRAFT/MUSL] Update __stdout_write to allow flushing on stdout
+
+Signed-off-by: gaulthier gain <gaulthier.gain@uliege.be>
+---
+ src/stdio/__stdout_write.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/stdio/__stdout_write.c b/src/stdio/__stdout_write.c
+index dd1ec60..f9c9489 100644
+--- a/src/stdio/__stdout_write.c
++++ b/src/stdio/__stdout_write.c
+@@ -6,6 +6,6 @@ size_t __stdout_write(FILE *f, const unsigned char *buf, size_t len)
+	struct winsize wsz;
+	f->write = __stdio_write;
+	if (!(f->flags & F_SVB) && __syscall(SYS_ioctl, f->fd, TIOCGWINSZ, &wsz))
+-		f->lbf = -1;
++		f->lbf = '\n';
+	return __stdio_write(f, buf, len);
+ }
+--
+2.17.1
+
