@@ -1,0 +1,27 @@
+From 2aa8ddeb0deb165b28f9e70b14da69b7bf9b938d Mon Sep 17 00:00:00 2001
+From: gaulthier gain <gaulthier.gain@uliege.be>
+Date: Mon, 24 Feb 2020 21:01:40 +0000
+Subject: [PATCH] Remove <sys/ioctl> from musl internal
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+---
+ include/sys/mount.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/sys/mount.h b/include/sys/mount.h
+index 57a89c0..6516a51 100644
+--- a/include/sys/mount.h
++++ b/include/sys/mount.h
+@@ -5,7 +5,9 @@
+ extern "C" {
+ #endif
+
++#ifndef _VFSCORE_SYS_MOUNT_H_
+ #include <sys/ioctl.h>
++#endif
+
+ #define BLKROSET   _IO(0x12, 93)
+ #define BLKROGET   _IO(0x12, 94)
+--
+2.17.1
+
