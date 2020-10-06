@@ -69,10 +69,12 @@ LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/readahead.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/reboot.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/remap_file_pages.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sbrk.c
-#LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sendfile.c
+LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sendfile.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setfsgid.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setfsuid.c
+ifneq ($(CONFIG_LIBPOSIX_USER),y)
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setgroups.c
+endif
 #LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sethostname.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setns.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/settimeofday.c

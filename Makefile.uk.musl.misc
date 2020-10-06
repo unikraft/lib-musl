@@ -52,14 +52,16 @@ LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/gethostid.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getopt.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getopt_long.c
 #LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getpriority.c
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getresgid.c
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getresuid.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getrlimit.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getrusage.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getsubopt.c
+ifneq ($(CONFIG_LIBPOSIX_USER),y)
+LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getresgid.c
+LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getresuid.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/initgroups.c
 #LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/ioctl.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/issetugid.c
+endif
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/lockf.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/login_tty.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/mntent.c

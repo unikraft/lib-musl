@@ -16,18 +16,23 @@ LIBMUSL_PASSWD_HDRS-y += $(LIBMUSL)/include/sys/socket.h
 LIBMUSL_PASSWD_HDRS-y += $(LIBMUSL)/include/sys/stat.h
 LIBMUSL_PASSWD_HDRS-y += $(LIBMUSL)/include/unistd.h
 
+
+ifneq ($(CONFIG_LIBPOSIX_USER),y)
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/fgetgrent.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/fgetpwent.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/fgetspent.c
+
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getgr_a.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getgr_r.c
+
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getgrent.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getgrent_a.c
-LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getgrouplist.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getpw_a.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getpw_r.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getpwent.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getpwent_a.c
+LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getgrouplist.c
+endif
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getspent.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getspnam.c
 LIBMUSL_PASSWD_SRCS-y += $(LIBMUSL)/src/passwd/getspnam_r.c
