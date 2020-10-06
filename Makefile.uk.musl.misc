@@ -75,7 +75,9 @@ LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/setdomainname.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/setrlimit.c
 #LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/syscall.c|misc
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/syslog.c
+ifneq ($(CONFIG_LIBPOSIX_SYSINFO),y)
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/uname.c
+endif
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/wordexp.c
 
 $(eval $(call _libmusl_import_lib,misc,$(LIBMUSL_MISC_HDRS-y),$(LIBMUSL_MISC_SRCS-y)))
