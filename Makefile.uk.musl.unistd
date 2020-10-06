@@ -46,7 +46,9 @@ LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getgroups.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getlogin.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getlogin_r.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getuid.c
-else
+endif
+
+ifneq ($(CONFIG_LIBPOSIX_SYSINFO),y)
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/gethostname.c
 endif
 
