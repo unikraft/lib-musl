@@ -1,6 +1,28 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/fnmatch.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/glob.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/regcomp.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/regerror.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/regexec.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/regex/tre-mem.c
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/assert.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/ctype.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/dirent.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/fnmatch.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/glob.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/limits.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/src/internal/locale_impl.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/regex.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/stddef.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/stdio.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/sys/stat.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/src/regex/tre.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/wchar.h
+LIBMUSL_REGEX_HDRS-y += $(LIBMUSL)/include/wctype.h
+
+LIBMUSL_REGEX_SRCS-y += $(LIBMUSL)/src/regex/fnmatch.c
+LIBMUSL_REGEX_SRCS-y += $(LIBMUSL)/src/regex/glob.c
+LIBMUSL_REGEX_SRCS-y += $(LIBMUSL)/src/regex/regcomp.c
+LIBMUSL_REGEX_SRCS-y += $(LIBMUSL)/src/regex/regerror.c
+LIBMUSL_REGEX_SRCS-y += $(LIBMUSL)/src/regex/regexec.c
+LIBMUSL_REGEX_SRCS-y += $(LIBMUSL)/src/regex/tre-mem.c
+
+$(eval $(call _libmusl_import_lib,regex,$(LIBMUSL_REGEX_HDRS-y),$(LIBMUSL_REGEX_SRCS-y)))

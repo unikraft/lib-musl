@@ -1,13 +1,36 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/madvise.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mincore.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mlock.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mlockall.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mmap.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mprotect.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/mremap.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/msync.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/munlock.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/munlockall.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/munmap.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/posix_madvise.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mman/shm_open.c
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/fcntl.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/limits.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/pthread.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/stdarg.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/sys/syscall.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/sys/mman.h
+LIBMUSL_MMAN_HDRS-y += $(LIBMUSL)/include/unistd.h
+
+# ifeq (arm,$(ARCH))
+# LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/arch/arm/syscall_arch.h
+# else ifeq (x86_32,$(ARCH))
+# LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/arch/i386/syscall_arch.h
+# else ifeq (x86_64,$(ARCH))
+# LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/arch/x86_64/syscall_arch.h
+# endif
+
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/madvise.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/mincore.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/mlock.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/mlockall.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/mmap.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/mprotect.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/mremap.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/msync.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/munlock.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/munlockall.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/munmap.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/posix_madvise.c
+LIBMUSL_MMAN_SRCS-y += $(LIBMUSL)/src/mman/shm_open.c
+
+$(eval $(call _libmusl_import_lib,mman,$(LIBMUSL_MMAN_HDRS-y),$(LIBMUSL_MMAN_SRCS-y)))

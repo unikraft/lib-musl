@@ -1,9 +1,23 @@
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/__brk.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/aligned_alloc.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/calloc.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/expand_heap.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/lite_malloc.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/malloc.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/malloc_usable_size.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/memalign.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/malloc/posix_memalign.c
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/src/internal/atomic.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/limits.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/malloc.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_MALLOC_HDRS-y += $(LIBMUSL)/include/sys/mman.h
+
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/__brk.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/aligned_alloc.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/calloc.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/expand_heap.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/lite_malloc.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/malloc.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/malloc_usable_size.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/memalign.c
+#LIBMUSL_MALLOC_SRCS-y += $(LIBMUSL)/src/malloc/posix_memalign.c
+
+$(eval $(call _libmusl_import_lib,malloc,$(LIBMUSL_MALLOC_HDRS-y),$(LIBMUSL_MALLOC_SRCS-y)))

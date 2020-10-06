@@ -1,8 +1,19 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_blowfish.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_des.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_md5.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_r.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_sha256.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/crypt_sha512.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/crypt/encrypt.c
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/crypt.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/ctype.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/stdio.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_CRYPT_HDRS-y += $(LIBMUSL)/include/unistd.h
+
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt_blowfish.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt_des.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt_md5.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt_r.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt_sha256.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/crypt_sha512.c
+LIBMUSL_CRYPT_SRCS-y += $(LIBMUSL)/src/crypt/encrypt.c
+
+$(eval $(call _libmusl_import_lib,crypt,$(LIBMUSL_CRYPT_HDRS-y),$(LIBMUSL_CRYPT_SRCS-y)))

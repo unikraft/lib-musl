@@ -1,9 +1,206 @@
 # hidden
 menuconfig LIBMUSL
-        bool "musl - A C standard library"
-        default n
-        select HAVE_LIBC
-        select LIBKUALLOC
-        select LIBSYSCALL_SHIM
-        select LIBVFSCORE
-        select LIBPOSIX_PROCESS
+  bool "musl: A C standard library"
+  default n
+  select HAVE_LIBC
+  select LIBKUALLOC
+  select LIBSYSCALL_SHIM
+  select LIBVFSCORE
+  select LIBPOSIX_PROCESS
+
+  select LIBMUSL_STAT
+  select LIBMUSL_DIRENT
+  select LIBMUSL_TERMIOS
+  select LIBMUSL_LOCALE
+  select LIBMUSL_ERRNO
+  select LIBMUSL_INTERNAL
+  select LIBMUSL_STRING
+  select LIBMUSL_CTYPE
+  select LIBMUSL_STDLIB
+  select LIBMUSL_ENV
+
+if LIBMUSL
+
+config LIBMUSL_AIO
+  bool "libaio"
+  default y
+
+config LIBMUSL_COMPLEX
+  bool "libcomplex"
+  default y
+
+config LIBMUSL_CONF
+  bool "libconf"
+  default y
+
+config LIBMUSL_CRYPT
+  bool "libcrypt"
+  default y
+
+config LIBMUSL_CTYPE
+  bool "libctype"
+  default y
+
+config LIBMUSL_DIRENT
+  bool "libdirent"
+  default y
+
+config LIBMUSL_ENV
+  bool "libenv"
+  default y
+
+config LIBMUSL_ERRNO
+  bool "liberrno"
+  default y
+
+config LIBMUSL_EXIT
+  bool "libexit"
+  default y
+
+config LIBMUSL_FCNTL
+  bool "libfcntl"
+  default y
+
+config LIBMUSL_FENV
+  bool "libfenv"
+  default y
+
+config LIBMUSL_INTERNAL
+  bool "libinternal"
+  default y
+
+config LIBMUSL_IPC
+  bool "libipc"
+  default y
+
+config LIBMUSL_LDSO
+  bool "libldso"
+  default y
+
+config LIBMUSL_LEGACY
+  bool "liblegacy"
+  default y
+
+config LIBMUSL_LINUX
+  bool "liblinux"
+  default y
+
+config LIBMUSL_LOCALE
+  bool "liblocale"
+  default y
+
+config LIBMUSL_MALLOC
+  bool "libmalloc"
+  default y
+
+config LIBMUSL_MATH
+  bool "libmath"
+  default y
+  select LIBMUSL_FENV
+
+config LIBMUSL_MISC
+  bool "libmisc"
+  default y
+
+config LIBMUSL_MMAN
+  bool "libmman"
+  default y
+
+config LIBMUSL_MQ
+  bool "libmq"
+  default y
+
+config LIBMUSL_MULTIBYTE
+  bool "libmultibyte"
+  default y
+
+config LIBMUSL_NETWORK
+  bool "libnetwork"
+  default y
+
+config LIBMUSL_PASSWD
+  bool "libpasswd"
+  default y
+
+config LIBMUSL_PRNG
+  bool "libprng"
+  default y
+
+config LIBMUSL_PROCESS
+  bool "libprocess"
+  default y
+  select LIBMUSL_THREAD
+
+config LIBMUSL_REGEX
+  bool "libregex"
+  default y
+
+config LIBMUSL_SCHED
+  bool "libsched"
+  default y
+
+config LIBMUSL_SEARCH
+  bool "libsearch"
+  default y
+
+config LIBMUSL_SELECT
+  bool "libselect"
+  default y
+
+config LIBMUSL_SETJMP
+  bool "libsetjmp"
+  default y
+
+config LIBMUSL_SIGNAL
+  bool "libsignal"
+  default y
+
+config LIBMUSL_STAT
+  bool "libstat"
+  default y
+
+config LIBMUSL_STDIO
+  bool "libstdio"
+  default y
+  select LIBMUSL_FENV
+  select LIBMUSL_UNISTD
+
+config LIBMUSL_STDLIB
+  bool "libstdlib"
+  default y
+  select LIBMUSL_SIGNAL
+  select LIBMUSL_MULTIBYTE
+
+config LIBMUSL_STRING
+  bool "libstring"
+  default y
+
+config LIBMUSL_TEMP
+  bool "libtemp"
+  default y
+
+config LIBMUSL_TERMIOS
+  bool "libtermios"
+  default y
+
+config LIBMUSL_THREAD
+  bool "libthread"
+  default y
+  select LIBMUSL_SCHED
+  select LIBMUSL_MMAN
+
+config LIBMUSL_FORCE_THREAD
+  bool
+  default y if LIBUKSCHED
+  default n
+  select LIBMUSL_THREAD
+
+config LIBMUSL_TIME
+  bool "libtime"
+  default y
+
+config LIBMUSL_UNISTD
+  bool "libunistd"
+  default y
+
+endif

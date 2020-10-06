@@ -1,6 +1,14 @@
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/creat.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/fcntl.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/open.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/openat.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fadvise.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fallocate.c
+LIBMUSL_FCNTL_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_FCNTL_HDRS-y += $(LIBMUSL)/include/fcntl.h
+LIBMUSL_FCNTL_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_FCNTL_HDRS-y += $(LIBMUSL)/include/stdarg.h
+LIBMUSL_FCNTL_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+
+#LIBMUSL_FCNTL_SRCS-y += $(LIBMUSL)/src/fcntl/creat.c
+#LIBMUSL_FCNTL_SRCS-y += $(LIBMUSL)/src/fcntl/fcntl.c
+#LIBMUSL_FCNTL_SRCS-y += $(LIBMUSL)/src/fcntl/open.c
+#LIBMUSL_FCNTL_SRCS-y += $(LIBMUSL)/src/fcntl/openat.c
+#LIBMUSL_FCNTL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fadvise.c
+LIBMUSL_FCNTL_SRCS-y += $(LIBMUSL)/src/fcntl/posix_fallocate.c
+
+$(eval $(call _libmusl_import_lib,fcntl,$(LIBMUSL_FCNTL_HDRS-y),$(LIBMUSL_FCNTL_SRCS-y)))
