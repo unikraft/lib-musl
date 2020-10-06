@@ -1,11 +1,19 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/__rand48_step.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/__seed48.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/drand48.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/lcong48.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/lrand48.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/mrand48.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/rand.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/rand_r.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/random.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/seed48.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/prng/srand48.c
+LIBMUSL_PRNG_HDRS-y += $(LIBMUSL)/include/inttypes.h
+LIBMUSL_PRNG_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_PRNG_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_PRNG_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_PRNG_HDRS-y += $(LIBMUSL)/include/string.h
+
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/__rand48_step.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/__seed48.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/drand48.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/lcong48.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/lrand48.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/mrand48.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/rand.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/rand_r.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/random.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/seed48.c
+LIBMUSL_PRNG_SRCS-y += $(LIBMUSL)/src/prng/srand48.c
+
+$(eval $(call _libmusl_import_lib,prng,$(LIBMUSL_PRNG_HDRS-y),$(LIBMUSL_PRNG_SRCS-y)))

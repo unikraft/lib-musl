@@ -1,2 +1,11 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/errno/__errno_location.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/errno/strerror.c
+LIBMUSL_ERRNO_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_ERRNO_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_ERRNO_HDRS-y += $(LIBMUSL)/src/internal/locale_impl.h
+LIBMUSL_ERRNO_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
+LIBMUSL_ERRNO_HDRS-y += $(LIBMUSL)/src/errno/__strerror.h
+LIBMUSL_ERRNO_HDRS-y += $(LIBMUSL)/include/string.h
+
+LIBMUSL_ERRNO_SRCS-y += $(LIBMUSL)/src/errno/__errno_location.c
+LIBMUSL_ERRNO_SRCS-y += $(LIBMUSL)/src/errno/strerror.c
+
+$(eval $(call _libmusl_import_lib,errno,$(LIBMUSL_ERRNO_HDRS-y),$(LIBMUSL_ERRNO_SRCS-y)))

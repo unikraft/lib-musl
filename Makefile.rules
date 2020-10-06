@@ -1,0 +1,31 @@
+#
+# Import a sub-library of musl
+#
+# @param $(1)
+#   The name of the sub-library within musl.
+# @param $(2)
+#   The headers for this sub-library.
+# @param $(3)
+#   The source files for this sub-library.
+#
+define _libmusl_import_lib
+$(LIBMUSL_BUILD)/include/$(1):
+	$(call verbose_cmd,MKDIR,libmusl: $(subst $(LIBMUSL_BUILD),,$(1)): $(notdir $$@), mkdir -p $$@)
+
+# Make a symbolic link of the original header file to a sub-library directory
+$(LIBMUSL_BUILD)/include/$(1)/%.h:
+	$$(Q)mkdir -p $$(shell dirname $$@)
+	$(call verbose_cmd,HOSTLN,libmusl: $(1): $$(subst $(LIBMUSL_BUILD)/include/$(1)/,,$$@), \
+		ln -sf $$(subst $(LIBMUSL_BUILD)/include/$(1)/,$(LIBMUSL),$$@) $$@)
+
+LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
+LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/src/internal
+LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/src/$(1)
+LIBMUSL_SRCS-y += $(3)
+
+CINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
+CXXINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
+
+# Append the sub library directory to the include path
+$(LIBMUSL_BUILD)/.prepared: $(subst $(LIBMUSL),$(LIBMUSL_BUILD)/include/$(1),$(2))
+endef

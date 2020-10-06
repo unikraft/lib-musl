@@ -1,3 +1,19 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/aio/aio.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/aio/aio_suspend.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/aio/lio_listio.c
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/aio.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/src/internal/atomic.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/limits.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/pthread.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/semaphore.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/time.h
+LIBMUSL_AIO_HDRS-y += $(LIBMUSL)/include/unistd.h
+
+LIBMUSL_AIO_SRCS-y += $(LIBMUSL)/src/aio/aio.c
+LIBMUSL_AIO_SRCS-y += $(LIBMUSL)/src/aio/aio_suspend.c
+LIBMUSL_AIO_SRCS-y += $(LIBMUSL)/src/aio/lio_listio.c
+
+$(eval $(call _libmusl_import_lib,aio,$(LIBMUSL_AIO_HDRS-y),$(LIBMUSL_AIO_SRCS-y)))

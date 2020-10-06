@@ -1,10 +1,19 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/affinity.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_cpucount.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_get_priority_max.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_getcpu.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_getparam.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_getscheduler.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_rr_get_interval.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_setparam.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_setscheduler.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/sched/sched_yield.c
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/src/internal/atomic.h
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/sched.h
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/affinity.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_cpucount.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_get_priority_max.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_getcpu.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_getparam.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_getscheduler.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_rr_get_interval.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_setparam.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_setscheduler.c
+LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_yield.c
+
+$(eval $(call _libmusl_import_lib,sched,$(LIBMUSL_SCHED_HDRS-y),$(LIBMUSL_SCHED_SRCS-y)))

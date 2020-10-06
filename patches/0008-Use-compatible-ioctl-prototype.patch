@@ -1,0 +1,30 @@
+From 150959f0fd0b04919fb1384abb8998fd8e2c1ca4 Mon Sep 17 00:00:00 2001
+From: Alexander Jung <alexander.jung@neclab.eu>
+Date: Tue, 30 Jun 2020 19:45:36 +0200
+Subject: [PATCH] Use compatible ioctl prototype
+
+This patch updates the `ioctl` prototype with a more precise definition
+which is also compliant with vfscore.
+
+Signed-off-by: Alexander Jung <alexander.jung@neclab.eu>
+---
+ include/sys/ioctl.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/include/sys/ioctl.h b/include/sys/ioctl.h
+index d0415b3..9929002 100644
+--- a/include/sys/ioctl.h
++++ b/include/sys/ioctl.h
+@@ -6,7 +6,8 @@ extern "C" {
+ 
+ #include <bits/ioctl.h>
+ 
+-int ioctl (int, int, ...);
++// int ioctl (int, int, ...);
++int ioctl(int fd, unsigned long int request, ...);
+ 
+ #ifdef __cplusplus
+ }
+-- 
+2.20.1
+

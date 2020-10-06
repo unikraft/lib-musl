@@ -1,13 +1,29 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/__getdents.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/alphasort.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/closedir.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/dirfd.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/fdopendir.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/opendir.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/readdir.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/readdir_r.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/rewinddir.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/scandir.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/seekdir.c
-#LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/telldir.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/dirent/versionsort.c
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/sys/stat.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/dirent.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/fcntl.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/stddef.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/string.h
+
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/include/unistd.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/src/dirent/__dirent.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_DIRENT_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+
+LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/__getdents.c
+LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/alphasort.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/closedir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/dirfd.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/fdopendir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/opendir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/readdir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/readdir_r.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/rewinddir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/scandir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/seekdir.c
+#LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/telldir.c
+LIBMUSL_DIRENT_SRCS-y += $(LIBMUSL)/src/dirent/versionsort.c
+
+$(eval $(call _libmusl_import_lib,dirent,$(LIBMUSL_DIRENT_HDRS-y),$(LIBMUSL_DIRENT_SRCS-y)))

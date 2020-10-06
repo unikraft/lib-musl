@@ -1,10 +1,18 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/cfgetospeed.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/cfmakeraw.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/cfsetospeed.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcdrain.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcflow.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcflush.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcgetattr.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcgetsid.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcsendbreak.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/termios/tcsetattr.c
+LIBMUSL_TERMIOS_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_TERMIOS_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_TERMIOS_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_TERMIOS_HDRS-y += $(LIBMUSL)/include/sys/ioctl.h
+LIBMUSL_TERMIOS_HDRS-y += $(LIBMUSL)/include/termios.h
+
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/cfgetospeed.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/cfmakeraw.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/cfsetospeed.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcdrain.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcflow.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcflush.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcgetattr.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcgetsid.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcsendbreak.c
+LIBMUSL_TERMIOS_SRCS-y += $(LIBMUSL)/src/termios/tcsetattr.c
+
+$(eval $(call _libmusl_import_lib,termios,$(LIBMUSL_TERMIOS_HDRS-y),$(LIBMUSL_TERMIOS_SRCS-y)))

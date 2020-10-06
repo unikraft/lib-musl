@@ -1,5 +1,12 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/hsearch.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/insque.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/lsearch.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/tdestroy.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/search/tsearch_avl.c
+LIBMUSL_SEARCH_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_SEARCH_HDRS-y += $(LIBMUSL)/include/search.h
+LIBMUSL_SEARCH_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_SEARCH_HDRS-y += $(LIBMUSL)/include/string.h
+
+LIBMUSL_SEARCH_SRCS-y += $(LIBMUSL)/src/search/hsearch.c
+LIBMUSL_SEARCH_SRCS-y += $(LIBMUSL)/src/search/insque.c
+LIBMUSL_SEARCH_SRCS-y += $(LIBMUSL)/src/search/lsearch.c
+LIBMUSL_SEARCH_SRCS-y += $(LIBMUSL)/src/search/tdestroy.c
+LIBMUSL_SEARCH_SRCS-y += $(LIBMUSL)/src/search/tsearch_avl.c
+
+$(eval $(call _libmusl_import_lib,search,$(LIBMUSL_SEARCH_HDRS-y),$(LIBMUSL_SEARCH_SRCS-y)))

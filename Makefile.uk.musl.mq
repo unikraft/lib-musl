@@ -1,10 +1,22 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_close.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_getattr.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_notify.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_open.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_receive.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_send.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_setattr.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_timedreceive.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_timedsend.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/mq/mq_unlink.c
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/fcntl.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/mqueue.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/pthread.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/signal.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/stdarg.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/sys/socket.h
+LIBMUSL_MQ_HDRS-y += $(LIBMUSL)/include/unistd.h
+
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_close.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_getattr.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_notify.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_open.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_receive.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_send.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_setattr.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_timedreceive.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_timedsend.c
+LIBMUSL_MQ_SRCS-y += $(LIBMUSL)/src/mq/mq_unlink.c
+
+$(eval $(call _libmusl_import_lib,mq,$(LIBMUSL_MQ_HDRS-y),$(LIBMUSL_MQ_SRCS-y)))

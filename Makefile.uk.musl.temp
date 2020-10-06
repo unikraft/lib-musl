@@ -1,7 +1,19 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/__randname.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkdtemp.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkostemp.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkostemps.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkstemp.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mkstemps.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/temp/mktemp.c
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/fcntl.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/stdlib.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/sys/stat.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/time.h
+LIBMUSL_TEMP_HDRS-y += $(LIBMUSL)/include/unistd.h
+
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/__randname.c
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/mkdtemp.c
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/mkostemp.c
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/mkostemps.c
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/mkstemp.c
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/mkstemps.c
+LIBMUSL_TEMP_SRCS-y += $(LIBMUSL)/src/temp/mktemp.c
+
+$(eval $(call _libmusl_import_lib,temp,$(LIBMUSL_TEMP_HDRS-y),$(LIBMUSL_TEMP_SRCS-y)))

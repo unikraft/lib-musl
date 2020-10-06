@@ -1,3 +1,14 @@
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/select/poll.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/select/pselect.c
-LIBMUSL_SRCS-y += $(LIBMUSL)/src/select/select.c
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/src/internal/libc.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/include/poll.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/include/signal.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/include/sys/select.h
+LIBMUSL_SELECT_HDRS-y += $(LIBMUSL)/include/time.h
+
+LIBMUSL_SELECT_SRCS-y += $(LIBMUSL)/src/select/poll.c
+LIBMUSL_SELECT_SRCS-y += $(LIBMUSL)/src/select/pselect.c
+LIBMUSL_SELECT_SRCS-y += $(LIBMUSL)/src/select/select.c
+
+$(eval $(call _libmusl_import_lib,select,$(LIBMUSL_SELECT_HDRS-y),$(LIBMUSL_SELECT_SRCS-y)))
