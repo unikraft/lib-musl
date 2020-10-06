@@ -24,7 +24,7 @@ LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/ptrace.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/quota.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/reboot.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/resource.h
-LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/sendfile.h
+#LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/sendfile.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/signalfd.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/swap.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/sysinfo.h
@@ -69,7 +69,9 @@ LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/readahead.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/reboot.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/remap_file_pages.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sbrk.c
+ifneq ($(CONFIG_LIBLWIP),y)
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sendfile.c
+endif
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setfsgid.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setfsuid.c
 ifneq ($(CONFIG_LIBPOSIX_USER),y)
