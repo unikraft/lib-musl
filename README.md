@@ -9,11 +9,10 @@ support.
 
 ## Build
 
-In order to avoid multiple definitions errors, the following libraries
+In order to avoid multiple definitions errors, the following components
 MUST NOT BE INCLUDED with musl:
 
-* `POSIX-user`
-* `lwip`
+* `lwip->socket`
 * `pthread-embedded`
 
 ## Known Issues
