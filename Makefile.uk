@@ -116,6 +116,7 @@ LIBMUSL_CFLAGS-y += -Wno-missing-braces
 LIBMUSL_CFLAGS-y += -Wno-cast-function-type
 LIBMUSL_CFLAGS-y += -Wno-format-contains-nul
 LIBMUSL_CFLAGS-y += -Wno-type-limits
+LIBMUSL_CFLAGS-y += -DUK_LIBC_SYSCALL=0
 LIBMUSL_CFLAGS-y += $(LIBMUSL_HDRS_FLAGS-y)
 
 # We globally switch off warnings that are caused by musl's public headers
