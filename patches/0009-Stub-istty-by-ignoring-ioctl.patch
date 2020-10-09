@@ -1,0 +1,24 @@
+From ab6c1cf39135f9b11524267a0d3b517b88f4ff27 Mon Sep 17 00:00:00 2001
+From: gaulthier gain <gaulthier.gain@uliege.be>
+Date: Fri, 9 Oct 2020 15:18:24 +0000
+Subject: [PATCH] Stub istty by ignoring ioctl
+
+Signed-off-by: gaulthier gain <gaulthier.gain@uliege.be>
+---
+ src/unistd/isatty.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/unistd/isatty.c b/src/unistd/isatty.c
+index c8badaf..a0f34d5 100644
+--- a/src/unistd/isatty.c
++++ b/src/unistd/isatty.c
+@@ -5,5 +5,5 @@
+ int isatty(int fd)
+ {
+ 	struct winsize wsz;
+-	return !__syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz);
++	return 1; //!__syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz);
+ }
+-- 
+2.17.1
+
