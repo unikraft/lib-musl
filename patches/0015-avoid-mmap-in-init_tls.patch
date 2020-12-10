@@ -1,0 +1,36 @@
+--- a/src/env/__init_tls.c	2020-11-06 14:11:05.226052792 +0100
++++ b/src/env/__init_tls.c	2020-11-06 14:37:32.885073260 +0100
+@@ -8,6 +8,9 @@
+ #include "atomic.h"
+ #include "syscall.h"
+ 
++#include <uk/alloc.h>
++#include <uk/assert.h>
++
+ int __init_tp(void *p)
+ {
+ 	pthread_t td = p;
+@@ -114,16 +117,13 @@
+ 		+ MIN_TLS_ALIGN-1 & -MIN_TLS_ALIGN;
+ 
+ 	if (libc.tls_size > sizeof builtin_tls) {
+-#ifndef SYS_mmap2
+-#define SYS_mmap2 SYS_mmap
+-#endif
+-		mem = (void *)__syscall(
+-			SYS_mmap2,
+-			0, libc.tls_size, PROT_READ|PROT_WRITE,
+-			MAP_ANONYMOUS|MAP_PRIVATE, -1, 0);
+-		/* -4095...-1 cast to void * will crash on dereference anyway,
+-		 * so don't bloat the init code checking for error codes and
+-		 * explicitly calling a_crash(). */
++                mem = NULL;
++                uk_posix_memalign(
++                        uk_alloc_get_default(),
++                        &mem,
++                        4096, // TODO read actual page size
++                        libc.tls_size);
++                UK_ASSERT(mem != NULL);
+ 	} else {
+ 		mem = builtin_tls;
+ 	}
