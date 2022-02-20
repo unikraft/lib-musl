@@ -18,6 +18,7 @@ menuconfig LIBMUSL
   select LIBMUSL_CTYPE
   select LIBMUSL_STDLIB
   select LIBMUSL_ENV
+  select LIBUKSIGNAL
 
 if LIBMUSL
 
