@@ -52,8 +52,8 @@ LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/gethostid.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getopt.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getopt_long.c
 #LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getpriority.c
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getrlimit.c
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getrusage.c
+#LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getrlimit.c
+#LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getrusage.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getsubopt.c
 ifneq ($(CONFIG_LIBPOSIX_USER),y)
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getresgid.c
@@ -72,7 +72,7 @@ LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/pty.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/realpath.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/setdomainname.c
 #LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/setpriority.c
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/setrlimit.c
+#LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/setrlimit.c
 #LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/syscall.c|misc
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/syslog.c
 ifneq ($(CONFIG_LIBPOSIX_SYSINFO),y)

@@ -58,7 +58,7 @@ LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/mktime.c
 #LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/nanosleep.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/strftime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/strptime.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/time.c
+#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/time.c
 #LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timegm.c
 
 ifneq ($(CONFIG_LIBUKTIME),y)

@@ -14,6 +14,6 @@ LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_getscheduler.c
 LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_rr_get_interval.c
 LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_setparam.c
 LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_setscheduler.c
-LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_yield.c
+#LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/sched_yield.c
 
 $(eval $(call _libmusl_import_lib,sched,$(LIBMUSL_SCHED_HDRS-y),$(LIBMUSL_SCHED_SRCS-y)))
