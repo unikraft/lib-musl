@@ -40,26 +40,26 @@ LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/asctime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/asctime_r.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_getcpuclockid.c
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_getres.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_getres.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_gettime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_nanosleep.c
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_settime.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock_settime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/ctime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/ctime_r.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/difftime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/ftime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/getdate.c
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/gettimeofday.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/gettimeofday.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/gmtime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/gmtime_r.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/localtime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/localtime_r.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/mktime.c
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/nanosleep.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/nanosleep.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/strftime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/strptime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/time.c
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timegm.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timegm.c
 
 ifneq ($(CONFIG_LIBUKTIME),y)
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_create.c
@@ -69,9 +69,9 @@ LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_settime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_getoverrun.c
 endif
 
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/times.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/times.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timespec_get.c
-#LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/utime.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/utime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/wcsftime.c
 
 $(eval $(call _libmusl_import_lib,time,$(LIBMUSL_TIME_HDRS-y),$(LIBMUSL_TIME_SRCS-y)))
