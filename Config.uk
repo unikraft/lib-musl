@@ -19,6 +19,8 @@ menuconfig LIBMUSL
   select LIBMUSL_STDLIB
   select LIBMUSL_ENV
 
+  select LIBSYSCALL_SHIM_NOWRAPPER
+
 if LIBMUSL
 
 config LIBMUSL_AIO
