@@ -18,10 +18,10 @@ LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/unistd.h
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execle.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execlp.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execv.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execve.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execve.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execvp.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/fexecve.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/fork.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/fork.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addclose.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_adddup2.c
@@ -43,7 +43,7 @@ LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigmask.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/system.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/wait.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitid.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitpid.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitpid.c
 
 ifeq (x86_32,$(CONFIG_UK_ARCH))
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/i386/vfork.s|i386
