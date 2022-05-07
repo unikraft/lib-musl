@@ -1,43 +1,40 @@
-From 3a8c96c79ce087a8edb8e3f4c6f02615da5bba4c Mon Sep 17 00:00:00 2001
-From: Gaulthier Gain <gaulthier.gain@uliege.be>
-Date: Sat, 25 Jan 2020 15:37:55 +0100
-Subject: [PATCH] Use syscall_shim layer instead of musl internal syscalls
+From 0c7691509eaf13a2b06bf201e5259233b3ca9e20 Mon Sep 17 00:00:00 2001
+From: Dragos Iulian Argint <dragosargint21@gmail.com>
+Date: Sat, 7 May 2022 10:52:39 +0300
+Subject: [PATCH] lib-musl: Use macros defined in syscall shim layer.
 
-Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+This patch allows you to use function calls instead of binary
+system calls (ie `syscall`). Also, using the
+`uk_syscall_r_static (SYS_nr)` macro will determine, at compile time,
+the function corresponding to the system call given by SYS_nr
+(only possible when SYS_nr is known at compile time).
+
+Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
 ---
- src/internal/syscall.h | 98 +++++++++++-------------------------------
- 1 file changed, 25 insertions(+), 73 deletions(-)
+ src/internal/syscall.h | 74 ++++++++++++------------------------------
+ 1 file changed, 21 insertions(+), 53 deletions(-)
 
 diff --git a/src/internal/syscall.h b/src/internal/syscall.h
-index 6d378a8..655e99a 100644
+index 6d378a8..5bdb9ea 100644
 --- a/src/internal/syscall.h
 +++ b/src/internal/syscall.h
-@@ -1,8 +1,8 @@
--#ifndef _INTERNAL_SYSCALL_H
--#define _INTERNAL_SYSCALL_H
-+#ifndef UK_MUSL_SYSCALL
-+#define UK_MUSL_SYSCALL
-
+@@ -3,6 +3,8 @@
+ 
  #include <sys/syscall.h>
--#include "syscall_arch.h"
+ #include "syscall_arch.h"
 +#include <uk/syscall.h>
-
++
+ 
  #ifndef SYSCALL_RLIM_INFINITY
  #define SYSCALL_RLIM_INFINITY (~0ULL)
-@@ -12,69 +12,40 @@
- #define SYSCALL_MMAP2_UNIT 4096ULL
- #endif
-
--#ifndef __SYSCALL_LL_PRW
--#define __SYSCALL_LL_PRW(x) __SYSCALL_LL_O(x)
--#endif
--
--#ifndef __scc
--#define __scc(X) ((long) (X))
+@@ -18,53 +20,26 @@
+ 
+ #ifndef __scc
+ #define __scc(X) ((long) (X))
 -typedef long syscall_arg_t;
--#endif
 +typedef uk_syscall_arg_t syscall_arg_t;
-
+ #endif
+ 
  __attribute__((visibility("hidden")))
 -long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
 -	__syscall_cp(syscall_arg_t, syscall_arg_t, syscall_arg_t, syscall_arg_t,
@@ -60,26 +57,24 @@ index 6d378a8..655e99a 100644
 -#define __syscall6(n,a,b,c,d,e,f) __syscall6(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f))
 -#endif
 -#define __syscall7(n,a,b,c,d,e,f,g) (__syscall)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f),__scc(g))
-+long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
-+	__syscall_cp(uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t,
-+	             uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t);
-
+-
 -#define __SYSCALL_NARGS_X(a,b,c,d,e,f,g,h,n,...) n
 -#define __SYSCALL_NARGS(...) __SYSCALL_NARGS_X(__VA_ARGS__,7,6,5,4,3,2,1,0,)
 -#define __SYSCALL_CONCAT_X(a,b) a##b
 -#define __SYSCALL_CONCAT(a,b) __SYSCALL_CONCAT_X(a,b)
 -#define __SYSCALL_DISP(b,...) __SYSCALL_CONCAT(b,__SYSCALL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-+#define __syscall(...) uk_syscall(__VA_ARGS__)
-+#define syscall(...) __syscall_ret(uk_syscall(__VA_ARGS__))
-
--#define __syscall(...) __SYSCALL_DISP(__syscall,__VA_ARGS__)
--#define syscall(...) __syscall_ret(__syscall(__VA_ARGS__))
-+#define __syscall_cp(...) uk_syscall(__VA_ARGS__)
-+#define syscall_cp(...) __syscall_ret(uk_syscall(__VA_ARGS__))
-
--#define socketcall __socketcall
--#define socketcall_cp __socketcall_cp
 -
+-#define __syscall(...) __SYSCALL_DISP(__syscall,__VA_ARGS__)
++long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
++	__syscall_cp(uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t,
++	             uk_syscall_arg_t, uk_syscall_arg_t, uk_syscall_arg_t);
++
++#define __syscall(...) uk_syscall_r_static(__VA_ARGS__)
+ #define syscall(...) __syscall_ret(__syscall(__VA_ARGS__))
+ 
+ #define socketcall __socketcall
+ #define socketcall_cp __socketcall_cp
+ 
 -#define __syscall_cp0(n) (__syscall_cp)(n,0,0,0,0,0,0)
 -#define __syscall_cp1(n,a) (__syscall_cp)(n,__scc(a),0,0,0,0,0)
 -#define __syscall_cp2(n,a,b) (__syscall_cp)(n,__scc(a),__scc(b),0,0,0,0)
@@ -89,45 +84,19 @@ index 6d378a8..655e99a 100644
 -#define __syscall_cp6(n,a,b,c,d,e,f) (__syscall_cp)(n,__scc(a),__scc(b),__scc(c),__scc(d),__scc(e),__scc(f))
 -
 -#define __syscall_cp(...) __SYSCALL_DISP(__syscall_cp,__VA_ARGS__)
--#define syscall_cp(...) __syscall_ret(__syscall_cp(__VA_ARGS__))
-+#define __sys_open(...) open(__VA_ARGS__)
-+#define sys_open(...) open(__VA_ARGS__)
-
++/**
++ * This should allow cancelation points inside a system call.
++ * However, we currently don't support this operation.
++ * Hence, we stick to the basic uk_syscall
++ */
++#define __syscall_cp(...) uk_syscall_r_static(__VA_ARGS__)
+ #define syscall_cp(...) __syscall_ret(__syscall_cp(__VA_ARGS__))
+ 
  #ifndef SYSCALL_USE_SOCKETCALL
- #define __socketcall(nm,a,b,c,d,e,f) syscall(SYS_##nm, a, b, c, d, e, f)
- #define __socketcall_cp(nm,a,b,c,d,e,f) syscall_cp(SYS_##nm, a, b, c, d, e, f)
- #else
- #define __socketcall(nm,a,b,c,d,e,f) syscall(SYS_socketcall, __SC_##nm, \
--    ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
-+                                                                                              ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
- #define __socketcall_cp(nm,a,b,c,d,e,f) syscall_cp(SYS_socketcall, __SC_##nm, \
--    ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
-+                                                                                                    ((long [6]){ (long)a, (long)b, (long)c, (long)d, (long)e, (long)f }))
-+#endif
-+
-+#define socketcall __socketcall
-+#define socketcall_cp __socketcall_cp
-+
-+#if (defined CONFIG_ARCH_X86_64)
-+#define __SYSCALL_LL_E(x) (x)
-+#define __SYSCALL_LL_O(x) (x)
-+#else
-+#error "Missing macro for architecture"
- #endif
-
- /* fixup legacy 16-bit junk */
-@@ -120,7 +91,6 @@ long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
- #define SYS_setfsgid SYS_setfsgid32
- #endif
-
--
- /* fixup legacy 32-bit-vs-lfs64 junk */
-
- #ifdef SYS_fcntl64
-@@ -226,22 +196,4 @@ long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
+@@ -226,22 +201,15 @@ long __syscall_ret(unsigned long), __syscall(syscall_arg_t, ...),
  #define __SC_recvmmsg    19
  #define __SC_sendmmsg    20
-
+ 
 -#ifdef SYS_open
 -#define __sys_open2(x,pn,fl) __syscall2(SYS_open, pn, (fl)|O_LARGEFILE)
 -#define __sys_open3(x,pn,fl,mo) __syscall3(SYS_open, pn, (fl)|O_LARGEFILE, mo)
@@ -141,11 +110,19 @@ index 6d378a8..655e99a 100644
 -#endif
 -
 -#define __sys_open(...) __SYSCALL_DISP(__sys_open,,__VA_ARGS__)
--#define sys_open(...) __syscall_ret(__sys_open(__VA_ARGS__))
--
++#define __sys_open(...) uk_syscall_r_static(SYS_open, __VA_ARGS__)
+ #define sys_open(...) __syscall_ret(__sys_open(__VA_ARGS__))
+ 
 -#define __sys_open_cp(...) __SYSCALL_DISP(__sys_open_cp,,__VA_ARGS__)
--#define sys_open_cp(...) __syscall_ret(__sys_open_cp(__VA_ARGS__))
--
++/**
++ * This should allow cancelation points inside a system call.
++ * However, we currently don't support this operation.
++ * Hence, we stick to the basic uk_syscall
++ */
++#define __sys_open_cp(...) uk_syscall_r_static(SYS_open, __VA_ARGS__)
+ #define sys_open_cp(...) __syscall_ret(__sys_open_cp(__VA_ARGS__))
+ 
  #endif
---
-2.20.1
+-- 
+2.17.1
+
