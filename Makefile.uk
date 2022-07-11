@@ -71,7 +71,9 @@ include $(LIBMUSL_BASE)/Makefile.rules
 ################################################################################
 # Library includes
 ################################################################################
-LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/$(ARCH)
+MUSL_ARCH = $(subst arm64,aarch64,$(ARCH))
+
+LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/$(MUSL_ARCH)
 LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/generic
 LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL_BASE)/include
 
@@ -82,10 +84,10 @@ CXXINCLUDES-y  += $(LIBMUSL_GLOBAL_INCLUDES-y)
 # Musl-specific Targets
 ################################################################################
 # generate alltypes.h through musl sed script
-$(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
+$(LIBMUSL)/arch/$(MUSL_ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
 	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
 		sed -f $(LIBMUSL)/tools/mkalltypes.sed \
-		$(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h.in \
+		$(LIBMUSL)/arch/$(MUSL_ARCH)/bits/alltypes.h.in \
 		$(LIBMUSL)/include/alltypes.h.in > $@ && \
 		$(TOUCH) $@)
 
@@ -95,11 +97,11 @@ $(LIBMUSL)/src/internal/version.h:
 		printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ \
 		$(TOUCH) $@)
 
-UK_PREPARE += $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h
+UK_PREPARE += $(LIBMUSL)/arch/$(MUSL_ARCH)/bits/alltypes.h
 UK_PREPARE += $(LIBMUSL)/src/internal/version.h
 UK_PREPARE += $(LIBMUSL_BUILD)/.prepared
 
-LIBMUSL_CLEAN += $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h
+LIBMUSL_CLEAN += $(LIBMUSL)/arch/$(MUSL_ARCH)/bits/alltypes.h
 LIBMUSL_CLEAN += $(LIBMUSL)/src/internal/version.h
 
 ################################################################################
