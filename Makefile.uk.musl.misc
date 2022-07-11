@@ -44,7 +44,7 @@ LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/ffs.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/ffsl.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/ffsll.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/fmtmsg.c
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/forkpty.c
+#LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/forkpty.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/get_current_dir_name.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getauxval.c
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/getdomainname.c
@@ -78,6 +78,6 @@ LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/syslog.c
 ifneq ($(CONFIG_LIBPOSIX_SYSINFO),y)
 LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/uname.c
 endif
-LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/wordexp.c
+#LIBMUSL_MISC_SRCS-y += $(LIBMUSL)/src/misc/wordexp.c
 
 $(eval $(call _libmusl_import_lib,misc,$(LIBMUSL_MISC_HDRS-y),$(LIBMUSL_MISC_SRCS-y)))

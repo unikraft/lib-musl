@@ -21,7 +21,7 @@ LIBMUSL_LEGACY_HDRS-y += $(LIBMUSL)/include/unistd.h
 LIBMUSL_LEGACY_HDRS-y += $(LIBMUSL)/include/utmpx.h
 
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/cuserid.c
-LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/daemon.c
+#LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/daemon.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/err.c
 #LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/euidaccess.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/ftw.c
