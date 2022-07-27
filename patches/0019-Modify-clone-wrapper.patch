@@ -1,0 +1,61 @@
+From 2ad50560ffad11f6bc1c7788ae733760f6d85f7f Mon Sep 17 00:00:00 2001
+From: Robert Kuban <robert.kuban@opensynergy.com>
+Date: Thu, 11 Aug 2022 18:03:23 +0200
+Subject: [PATCH] Modify clone wrapper
+
+Signed-off-by: Robert Kuban <robert.kuban@opensynergy.com>
+---
+ src/thread/aarch64/clone.s | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
+
+diff --git a/src/thread/aarch64/clone.s b/src/thread/aarch64/clone.s
+index 50af913c..cd1f956b 100644
+--- a/src/thread/aarch64/clone.s
++++ b/src/thread/aarch64/clone.s
+@@ -1,12 +1,19 @@
+ // __clone(func, stack, flags, arg, ptid, tls, ctid)
+ //         x0,   x1,    w2,    x3,  x4,   x5,  x6
+ 
+-// syscall(SYS_clone, flags, stack, ptid, tls, ctid)
+-//         x8,        x0,    x1,    x2,   x3,  x4
++// see: lib/posix-process/clone.c
++// uk_syscall_r_clone(flags, stack, ptid, tlsp, ctid)
++//                    x0,    x1,    x2,   x3,   x4
++
++// see: lib/posix-process/process.c
++// uk_syscall_r_exit(status)
++//                   x0
+ 
+ .global __clone
+ .type   __clone,%function
+ __clone:
++	stp x29, x30, [sp, #-16]!
++
+ 	// align stack and save func,arg
+ 	and x1,x1,#-16
+ 	stp x0,x3,[x1,#-16]!
+@@ -16,14 +23,15 @@ __clone:
+ 	mov x2,x4
+ 	mov x3,x5
+ 	mov x4,x6
+-	mov x8,#220 // SYS_clone
+-	svc #0
++	bl uk_syscall_r_clone
+ 
+ 	cbz x0,1f
+ 	// parent
++	ldp x29, x30, [sp], #16
+ 	ret
+-	// child
++	// child (SP is X1 from syscall now)
+ 1:	ldp x1,x0,[sp],#16
+-	blr x1
+-	mov x8,#93 // SYS_exit
+-	svc #0
++	blr x1 // call func(arg)
++	mov x0, xzr
++	bl uk_syscall_r_exit
++	wfi
+-- 
+2.25.1
+
