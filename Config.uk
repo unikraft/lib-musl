@@ -4,9 +4,14 @@ menuconfig LIBMUSL
   default n
   select HAVE_LIBC
   select LIBKUALLOC
+  select LIBUKMMAP
   select LIBSYSCALL_SHIM
   select LIBVFSCORE
   select LIBPOSIX_PROCESS
+  select LIBPOSIX_PROCESS_PIDS
+  select LIBPOSIX_PROCESS_CLONE
+  select LIBPOSIX_FUTEX
+  select LIBUKSCHED_TCB_INIT
 
   select LIBMUSL_STAT
   select LIBMUSL_DIRENT
