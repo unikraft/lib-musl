@@ -156,27 +156,27 @@ LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/tss_set.c
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/vmlock.c
 
 ifeq (x86_32,$(CONFIG_UK_ARCH))
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/__set_thread_area.s|i386
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/__unmapself.s|i386
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/__set_thread_area.s|i386
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/__unmapself.s|i386
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/clone.s|i386
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/syscall_cp.s|i386
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/i386/tls.s|i386
 else ifeq (x86_64,$(CONFIG_UK_ARCH))
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/x86_64/__set_thread_area.s|x86_64
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/x86_64/__unmapself.s|x86_64
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/x86_64/__set_thread_area.s|x86_64
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/x86_64/__unmapself.s|x86_64
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/x86_64/clone.s|x86_64
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/x86_64/syscall_cp.s|x86_64
 else ifeq (arm,$(CONFIG_UK_ARCH))
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__aeabi_read_tp.s|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__aeabi_read_tp_c.c|arm
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__set_thread_area.c|arm
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__unmapself.s|arm
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__set_thread_area.c|arm
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__unmapself.s|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/atomics.s|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/clone.s|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/syscall_cp.s|arm
 else
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/__set_thread_area.c
-LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/__unmapself.c
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/__set_thread_area.c
+#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/__unmapself.c
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/clone.c|thread
 endif
 
