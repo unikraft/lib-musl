@@ -33,6 +33,14 @@
 #
 
 ################################################################################
+# This will reserve space within `uk_tls` for the pthread structure in Musl.
+# Please refer to ./arch/Makefile.rules for more details.
+# For this version of Musl the size of "struct pthread" is 280.
+################################################################################
+$(eval $(call ukarch_tls_tcb_reserve,280))
+
+
+################################################################################
 # Library registration
 ################################################################################
 $(eval $(call addlib_s,libmusl,$(CONFIG_LIBMUSL)))
@@ -82,7 +90,7 @@ $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
 		$(TOUCH) $@)
 
 # generate version.h
-$(LIBMUSL)/src/internal/version.h: 
+$(LIBMUSL)/src/internal/version.h:
 	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
 		printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ \
 		$(TOUCH) $@)
@@ -126,6 +134,9 @@ CXXFLAGS += $(LIBMUSL_HDRS_FLAGS-y)
 # OS dependencies code - Glue between Unicore and musl
 ################################################################################
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/mem.c
+LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_init_tls.c
+LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_unmapself.c
+LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__set_thread_area.c
 
 ################################################################################
 # Core Standard Library
