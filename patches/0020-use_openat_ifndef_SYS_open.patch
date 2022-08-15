@@ -1,0 +1,28 @@
+diff --git a/src/internal/syscall.h b/src/internal/syscall.h
+index 5bdb9ea9..c27e4915 100644
+--- a/src/internal/syscall.h
++++ b/src/internal/syscall.h
+@@ -201,7 +201,11 @@ long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
+ #define __SC_recvmmsg    19
+ #define __SC_sendmmsg    20
+ 
++#ifdef SYS_open
+ #define __sys_open(...) uk_syscall_r_static(SYS_open, __VA_ARGS__)
++#else
++#define __sys_open(...) uk_syscall_r_static(SYS_openat, AT_FDCWD,__VA_ARGS__)
++#endif
+ #define sys_open(...) __syscall_ret(__sys_open(__VA_ARGS__))
+ 
+ /**
+@@ -209,7 +213,11 @@ long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
+  * However, we currently don't support this operation.
+  * Hence, we stick to the basic uk_syscall
+  */
++#ifdef SYS_open
+ #define __sys_open_cp(...) uk_syscall_r_static(SYS_open, __VA_ARGS__)
++#else
++#define __sys_open_cp(...) uk_syscall_r_static(SYS_openat, AT_FDCWD, __VA_ARGS__)
++#endif
+ #define sys_open_cp(...) __syscall_ret(__sys_open_cp(__VA_ARGS__))
+ 
+ #endif
