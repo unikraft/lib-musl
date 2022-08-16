@@ -94,7 +94,7 @@ void *__uk_copy_tls(unsigned char *mem)
 	tls_area = mem;
 	ukarch_tls_area_init(tls_area);
 
-	td = (pthread_t) ukarch_tls_tlsp(tls_area);
+	td = (pthread_t) ukarch_tls_tcb_get(ukarch_tls_tlsp(tls_area));
 	td->dtv = td->dtv_copy = tls_area;
 
 	return td;
