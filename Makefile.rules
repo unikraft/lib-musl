@@ -18,13 +18,16 @@ $(LIBMUSL_BUILD)/include/$(1)/%.h:
 	$(call verbose_cmd,HOSTLN,libmusl: $(1): $$(subst $(LIBMUSL_BUILD)/include/$(1)/,,$$@), \
 		ln -sf $$(subst $(LIBMUSL_BUILD)/include/$(1)/,$(LIBMUSL),$$@) $$@)
 
-LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
+# includes for building libmusl
 LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/src/internal
 LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/src/$(1)
 LIBMUSL_SRCS-y += $(3)
+LIBMUSL_CINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
+LIBMUSL_CXXINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
 
-CINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
-CXXINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
+# includes for using libmusl
+CINCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
+CXXINCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
 
 # Append the sub library directory to the include path
 $(LIBMUSL_BUILD)/.prepared: $(subst $(LIBMUSL),$(LIBMUSL_BUILD)/include/$(1),$(2))
