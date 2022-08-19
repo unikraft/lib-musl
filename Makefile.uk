@@ -92,7 +92,7 @@ $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
 # generate version.h
 $(LIBMUSL)/src/internal/version.h:
 	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
-		printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ \
+		printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ && \
 		$(TOUCH) $@)
 
 UK_PREPARE += $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h
@@ -137,6 +137,7 @@ LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/mem.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_init_tls.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_unmapself.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__set_thread_area.c
+LIBMUSLGLUE_CINCLUDES += -I$(LIBMUSL)/src/internal
 
 ################################################################################
 # Core Standard Library
