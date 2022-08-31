@@ -92,7 +92,7 @@ $(LIBMUSL)/arch/$(MUSL_ARCH)/bits/alltypes.h: $(LIBMUSL_BUILD)/.patched
 		$(TOUCH) $@)
 
 # generate version.h
-$(LIBMUSL)/src/internal/version.h:
+$(LIBMUSL)/src/internal/version.h: fetch
 	$(call verbose_cmd,CONFIGURE,libmusl: $(notdir $@),\
 		printf '#define VERSION "%s"\n' "$$(cd $(LIBMUSL); sh tools/version.sh)" > $@ && \
 		$(TOUCH) $@)
