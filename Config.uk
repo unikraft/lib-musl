@@ -26,6 +26,7 @@ menuconfig LIBMUSL
   select LIBMUSL_ENV
 
   select LIBSYSCALL_SHIM_NOWRAPPER
+  select FPSIMD if ARCH_ARM_64
 
 if LIBMUSL
 
