@@ -4,6 +4,9 @@ LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/longjmp.c
 ifeq (arm,$(CONFIG_UK_ARCH))
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/arm/longjmp.s|arm
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/arm/setjmp.s|arm
+else ifeq (arm64,$(CONFIG_UK_ARCH))
+LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/aarch64/longjmp.s|aarch64
+LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/aarch64/setjmp.s|aarch64
 else ifeq (x86_32,$(CONFIG_UK_ARCH))
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/i386/longjmp.s|i386
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/i386/setjmp.s|i386
@@ -12,8 +15,6 @@ LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/x86_64/longjmp.s|x86_64
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/x86_64/setjmp.s|x86_64
 endif
 
-#LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/aarch64/longjmp.s
-#LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/aarch64/setjmp.s
 #LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/microblaze/longjmp.s
 #LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/microblaze/setjmp.s
 #LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/mips/longjmp.S

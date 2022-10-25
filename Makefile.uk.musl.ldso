@@ -21,6 +21,9 @@ ifeq (arm,$(CONFIG_UK_ARCH))
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/arm/dlsym.s|arm
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/arm/find_exidx.c|arm
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/tlsdesc.c
+else ifeq (arm64,$(CONFIG_UK_ARCH))
+LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/aarch64/dlsym.s|aarch64
+LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/aarch64/tlsdesc.s|aarch64
 else ifeq (x86_32,$(CONFIG_UK_ARCH))
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/i386/dlsym.s|x86_32
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/i386/tlsdesc.s|x86_32
@@ -33,8 +36,6 @@ LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/dlsym.c
 endif
 
 endif
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/aarch64/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/aarch64/tlsdesc.s
 #LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/microblaze/dlsym.s
 #LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/mips/dlsym.s
 #LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/mips64/dlsym.s

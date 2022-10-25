@@ -11,6 +11,8 @@ LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/feupdateenv.c
 ifeq (arm,$(CONFIG_UK_ARCH))
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/arm/fenv-hf.S|arm
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/arm/fenv.c|arm
+else ifeq (arm64,$(CONFIG_UK_ARCH))
+LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/aarch64/fenv.s|aarch64
 else ifeq (x86_32,$(CONFIG_UK_ARCH))
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/i386/fenv.s|x86_32
 else ifeq (x86_64,$(CONFIG_UK_ARCH))
@@ -19,7 +21,6 @@ else
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/fenv.c
 endif
 
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/aarch64/fenv.s
 #LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips/fenv-sf.c
 #LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips/fenv.S
 #LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips64/fenv-sf.c

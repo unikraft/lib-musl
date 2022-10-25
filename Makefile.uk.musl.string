@@ -91,6 +91,10 @@ LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/arm/memcpy.c|arm
 LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/arm/memcpy_le.S|arm
 LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/memmove.c|arm
 LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/memset.c|arm
+else ifeq (arm64,$(CONFIG_UK_ARCH))
+LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/memmove.c
+LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/memcpy.c
+LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/memset.c
 else ifeq (x86_32,$(CONFIG_UK_ARCH))
 LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/i386/memcpy.s|i386
 LIBMUSL_STRING_SRCS-y += $(LIBMUSL)/src/string/i386/memmove.s|i386
