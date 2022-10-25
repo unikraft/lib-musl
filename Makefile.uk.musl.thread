@@ -174,16 +174,16 @@ LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/__aeabi_read_tp_c.c|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/atomics.s|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/clone.s|arm
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/arm/syscall_cp.s|arm
+else ifeq (arm64,$(CONFIG_UK_ARCH))
+LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/__unmapself.s|aarch64
+LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/clone.s|aarch64
+LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/syscall_cp.s|aarch64
 else
 #LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/__set_thread_area.c
 #LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/__unmapself.c
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/clone.c|thread
 endif
 
-#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/__set_thread_area.s
-#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/__unmapself.s
-#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/clone.s
-#LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/syscall_cp.s
 #LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/microblaze/__set_thread_area.s
 #LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/microblaze/__unmapself.s
 #LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/microblaze/clone.s
