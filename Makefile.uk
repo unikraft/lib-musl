@@ -93,7 +93,6 @@ UK_PREPARE += $(LIBMUSL_BUILD)/.prepared
 
 LIBMUSL_CLEAN += $(LIBMUSL)/arch/$(ARCH)/bits/alltypes.h
 LIBMUSL_CLEAN += $(LIBMUSL)/src/internal/version.h
-LIBMUSL_CLEAN += $(LIBMUSL_BUILD)/include
 
 ################################################################################
 # Global flags
