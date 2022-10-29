@@ -34,7 +34,6 @@ LIBMUSL_NETWORK_HDRS-y += $(LIBMUSL)/include/sys/un.h
 LIBMUSL_NETWORK_HDRS-y += $(LIBMUSL)/include/time.h
 LIBMUSL_NETWORK_HDRS-y += $(LIBMUSL)/include/unistd.h
 
-ifneq ($(CONFIG_LIBPOSIX_SOCKET),y)
 LIBMUSL_NETWORK_HDRS-y += $(LIBMUSL)/include/sys/socket.h
 
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/socket.c
@@ -57,7 +56,6 @@ LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/sendmsg.c
 # LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/sendmmsg.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/sendto.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/socketpair.c
-endif
 
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/dn_comp.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/dn_expand.c
