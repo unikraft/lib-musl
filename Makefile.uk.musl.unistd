@@ -38,14 +38,15 @@ LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/fdatasync.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/fsync.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/ftruncate.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getcwd.c
-ifneq ($(CONFIG_LIBPOSIX_USER),y)
+
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getegid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/geteuid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getgid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getgroups.c
+LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getuid.c
+ifneq ($(CONFIG_LIBPOSIX_USER),y)
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getlogin.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getlogin_r.c
-LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/getuid.c
 endif
 
 ifneq ($(CONFIG_LIBPOSIX_SYSINFO),y)
@@ -77,20 +78,22 @@ LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/readlinkat.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/readv.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/renameat.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/rmdir.c
-ifneq ($(CONFIG_LIBPOSIX_USER),y)
-LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setegid.c
-LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/seteuid.c
+
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setgid.c
-LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setpgid.c
-LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setpgrp.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setregid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setresgid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setresuid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setreuid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setuid.c
+ifneq ($(CONFIG_LIBPOSIX_USER),y)
+LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setegid.c
+LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/seteuid.c
+endif
+LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setpgid.c
+LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setpgrp.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setsid.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/setxid.c
-endif
+
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/sleep.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/symlink.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/symlinkat.c
