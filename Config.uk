@@ -107,6 +107,7 @@ config LIBMUSL_MMAN
   default y
 
 config LIBMUSL_MQ
+  select LIBPOSIX_SOCKET
   bool "libmq"
   default y
 
