@@ -102,7 +102,7 @@ LIBMUSL_HDRS_FLAGS-y += -Wno-unused-value
 LIBMUSL_HDRS_FLAGS-y += -Wno-parentheses
 LIBMUSL_HDRS_FLAGS-y += -Wno-error=sign-compare
 LIBMUSL_HDRS_FLAGS-y += -Wno-builtin-macro-redefined
-LIBMUSL_HDRS_FLAGS-y += -D_POSIX_SOURCE -D_BSD_SOURCE
+LIBMUSL_HDRS_FLAGS-y += -D_XOPEN_SOURCE=700
 
 LIBMUSL_CFLAGS-y += -Wno-implicit-fallthrough
 LIBMUSL_CFLAGS-y += -Wno-restrict
