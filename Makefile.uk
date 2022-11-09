@@ -141,6 +141,7 @@ LIBMUSL_CORE_HDRS-y += $(LIBMUSL)/include/alloca.h
 LIBMUSL_CORE_HDRS-y += $(LIBMUSL)/include/stdbool.h
 LIBMUSL_CORE_HDRS-y += $(LIBMUSL)/include/limits.h
 LIBMUSL_CORE_HDRS-y += $(LIBMUSL)/include/assert.h
+LIBMUSL_CORE_HDRS-y += $(LIBMUSL)/include/sysexits.h
 
 $(eval $(call _libmusl_import_lib,core,$(LIBMUSL_CORE_HDRS-y),$(LIBMUSL_CORE_SRCS-y)))
 
