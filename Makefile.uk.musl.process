@@ -41,7 +41,7 @@ LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigdefault.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigmask.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnp.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/system.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/wait.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/wait.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitid.c
 #LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitpid.c
 
