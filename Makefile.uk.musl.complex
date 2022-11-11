@@ -1,6 +1,9 @@
 LIBMUSL_COMPLEX_HDRS-y += $(LIBMUSL)/include/complex.h
 LIBMUSL_COMPLEX_HDRS-y += $(LIBMUSL)/include/float.h
 LIBMUSL_COMPLEX_HDRS-y += $(LIBMUSL)/src/intenal/libm.h
+ifeq ($(CONFIG_LIBMUSL_MATH),y)
+    LIBMUSL_COMPLEX_HDRS-y += $(LIBMUSL)/include/tgmath.h
+endif
 
 LIBMUSL_COMPLEX_SRCS-y += $(LIBMUSL)/src/complex/casinh.c
 LIBMUSL_COMPLEX_SRCS-y += $(LIBMUSL)/src/complex/csinhl.c
