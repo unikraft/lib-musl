@@ -182,7 +182,7 @@ int uk_thread_uktcb_init(struct uk_thread *thread, void *tcb)
 /* This callback will only be called for threads that are NOT
  * created with the pthread API
  */
-void uk_thread_tcb_fini(struct uk_thread *thread, void *tcb)
+void uk_thread_uktcb_fini(struct uk_thread *thread, void *tcb)
 {
 	struct pthread *td = (struct pthread *) tcb;
 
