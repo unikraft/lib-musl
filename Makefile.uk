@@ -122,7 +122,7 @@ LIBMUSL_CFLAGS-y += -Wno-empty-body
 LIBMUSL_CFLAGS-y += -Wno-maybe-uninitialized
 LIBMUSL_CFLAGS-y += -Wno-unknown-pragmas
 LIBMUSL_CFLAGS-y += -Wno-missing-braces
-LIBMUSL_CFLAGS-y += -Wno-cast-function-type
+LIBMUSL_CFLAGS-$(call gcc_version_ge,8,0) += -Wno-cast-function-type
 LIBMUSL_CFLAGS-y += -Wno-format-contains-nul
 LIBMUSL_CFLAGS-y += -Wno-type-limits
 LIBMUSL_CFLAGS-y += -DUK_LIBC_SYSCALL=0
