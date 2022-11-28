@@ -118,14 +118,26 @@ static int __uk_init_tp(void *p)
 	/*
 	 * The original musl code will invoke here a `SYS_set_tid_address`
 	 * syscall, to set the tid user space address in the Kernel.
-	 * FIXME: Currently this does not return the tid assigned for the caller,
-	 * it returns an error code (-95, -ENOTSUP) because posix_process_init has not been
-	 * called at this stage, but will be called via uk_late_initcall.
+	 * FIXME: Currently this can fail in two ways. The first way is a
+	 * crash, which we avoid by checking if the current thread is NULL.
+	 * The reason why we introduced this check is that the scheduler is not
+	 * initialized when this function gets executed.
+	 *`uk_syscall_r_set_tid_address()` will call `uk_syscall_r_gettid()`
+	 * which may use the current uk_thread. If the uk_thread is NULL then
+	 * it will crash when trying to access an invalid address.
+	 * The second way it can fail is by returning an invalid tid. The call
+	 * can return an error code (-95, -ENOTSUP) because posix_process_init
+	 * has not been called at this stage, but will be called via uk_late_initcall.
 	 * It is not a really big problem right now. Since this is the main thread,
 	 * nobody should ever wait for it, and we can just assume thread id 0.
+	 * The workaround for the moment is to set the tid to 0 whenever an error
+	 * might happen.
 	 */
-	td->tid = uk_syscall_r_set_tid_address(&td->tid);
-	if (td->tid < 0) {
+	if (uk_thread_current()) {
+		td->tid = uk_syscall_r_set_tid_address(&td->tid);
+		if (td->tid < 0)
+			td->tid = 0;
+	} else {
 		td->tid = 0;
 	}
 	td->locale = &libc.global_locale;
