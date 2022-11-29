@@ -1,0 +1,34 @@
+From 17ebbfdf54bf48906e9a794858e82a22b4a79e92 Mon Sep 17 00:00:00 2001
+Message-Id: <17ebbfdf54bf48906e9a794858e82a22b4a79e92.1669753860.git.razvand@unikraft.io>
+From: Razvan Deaconescu <razvand@unikraft.io>
+Date: Tue, 29 Nov 2022 22:29:40 +0200
+Subject: [PATCH] src/env: Properly define environ variable
+
+`environ` is an array of pointers, the last element of which is the NULL
+pointer. The current definition of `environ` defines it as NULL, not as
+an array of pointers.
+
+This commit changes that, and defines `environ` as an array with a
+single NULL element.
+
+Signed-off-by: Razvan Deaconescu <razvand@unikraft.io>
+---
+ src/env/__environ.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/env/__environ.c b/src/env/__environ.c
+index e6c6faa..689b834 100644
+--- a/src/env/__environ.c
++++ b/src/env/__environ.c
+@@ -1,6 +1,7 @@
+ #include "libc.h"
+ 
+-char **__environ = 0;
++static char *init_environ[] = { NULL };
++char **__environ = init_environ;
+ weak_alias(__environ, ___environ);
+ weak_alias(__environ, _environ);
+ weak_alias(__environ, environ);
+-- 
+2.17.1
+
