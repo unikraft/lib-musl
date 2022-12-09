@@ -112,7 +112,6 @@ LIBMUSL_HDRS_FLAGS-y += -Wno-unused-value
 LIBMUSL_HDRS_FLAGS-y += -Wno-parentheses
 LIBMUSL_HDRS_FLAGS-y += -Wno-error=sign-compare
 LIBMUSL_HDRS_FLAGS-y += -Wno-builtin-macro-redefined
-LIBMUSL_HDRS_FLAGS-y += -D_XOPEN_SOURCE=700
 
 LIBMUSL_CFLAGS-y += -Wno-implicit-fallthrough
 LIBMUSL_CFLAGS-y += -Wno-restrict
@@ -126,6 +125,7 @@ LIBMUSL_CFLAGS-$(call gcc_version_ge,8,0) += -Wno-cast-function-type
 LIBMUSL_CFLAGS-y += -Wno-format-contains-nul
 LIBMUSL_CFLAGS-y += -Wno-type-limits
 LIBMUSL_CFLAGS-y += -DUK_LIBC_SYSCALL=0
+LIBMUSL_CFLAGS-y += -D_XOPEN_SOURCE=700
 LIBMUSL_CFLAGS-y += $(LIBMUSL_HDRS_FLAGS-y)
 
 # We globally switch off warnings that are caused by musl's public headers
