@@ -16,18 +16,18 @@ Signed-off-by: Razvan Deaconescu <razvand@unikraft.io>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/dirent.h b/include/dirent.h
-index e0a8fe6..12bb28c 100644
+index 650ecf6..b72acaf 100644
 --- a/include/dirent.h
 +++ b/include/dirent.h
-@@ -75,7 +75,7 @@ int versionsort(const struct dirent **, const struct dirent **);
+@@ -65,7 +65,7 @@ int versionsort(const struct dirent **, const struct dirent **);
  #define versionsort64 versionsort
  #define off64_t off_t
  #define ino64_t ino_t
 -#define getdents64 getdents
 +int getdents64(int, struct dirent64 *, size_t);
  #endif
- 
+
  #ifdef __cplusplus
--- 
-2.17.1
+--
+2.38.1
 

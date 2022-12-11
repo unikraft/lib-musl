@@ -2,11 +2,13 @@ LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/atomic.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/ctype.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/errno.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/fcntl.h
+LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/fork_impl.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/langinfo.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/libc.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/limits.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/locale.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/locale_impl.h
+LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/lock.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/pthread.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/setjmp.h
@@ -16,26 +18,18 @@ LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/stdio.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/stdlib.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/string.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/strings.h
-LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/syscall.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/sys/mman.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/sys/stat.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/sys/timeb.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/sys/time.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/sys/times.h
-LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/time.h
-LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/time/time_impl.h
+LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/src/include/time.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/unistd.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/utime.h
 LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/wchar.h
-LIBMUSL_TIME_HDRS-y += $(LIBMUSL)/include/nl_types.h
 
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__asctime.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__map_file.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__month_to_secs.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__secs_to_tm.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__tm_to_secs.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__tz.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__year_to_secs.c
+
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/asctime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/asctime_r.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/clock.c
@@ -54,24 +48,28 @@ LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/gmtime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/gmtime_r.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/localtime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/localtime_r.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__map_file.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/mktime.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__month_to_secs.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/nanosleep.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__secs_to_tm.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/strftime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/strptime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/time.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timegm.c
-
 ifneq ($(CONFIG_LIBUKTIME),y)
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_create.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_delete.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_getoverrun.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_gettime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_settime.c
-LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timer_getoverrun.c
 endif
-
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/times.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/timespec_get.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__tm_to_secs.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__tz.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/utime.c
 LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/wcsftime.c
+LIBMUSL_TIME_SRCS-y += $(LIBMUSL)/src/time/__year_to_secs.c
 
 $(eval $(call _libmusl_import_lib,time,$(LIBMUSL_TIME_HDRS-y),$(LIBMUSL_TIME_SRCS-y)))

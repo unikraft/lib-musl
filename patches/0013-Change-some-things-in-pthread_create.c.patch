@@ -10,17 +10,17 @@ It is needed because Unikraft demands that the tls be aligned.
 
 Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
 ---
- src/thread/pthread_create.c | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ src/thread/pthread_create.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
 diff --git a/src/thread/pthread_create.c b/src/thread/pthread_create.c
-index 439ee36..d7d5da9 100644
+index 6f187ee..d6dd4c9 100644
 --- a/src/thread/pthread_create.c
 +++ b/src/thread/pthread_create.c
-@@ -10,6 +10,11 @@ void *__mmap(void *, size_t, int, int, int, off_t);
- int __munmap(void *, size_t);
- int __mprotect(void *, size_t, int);
- 
+@@ -7,6 +7,11 @@
+ #include <string.h>
+ #include <stddef.h>
+
 +/*
 + * Unikraft version of `__unmapself()`. See `__uk_unmapself.c`
 + */
@@ -29,10 +29,11 @@ index 439ee36..d7d5da9 100644
  static void dummy_0()
  {
  }
-@@ -108,9 +113,15 @@ _Noreturn void __pthread_exit(void *result)
- 		 * explicitly wait for vmlock holders first. */
- 		__vm_wait();
- 
+@@ -149,10 +154,15 @@ _Noreturn void __pthread_exit(void *result)
+ 		 * processed above, so unregister it with the kernel. */
+ 		if (self->robust_list.off)
+ 			__syscall(SYS_set_robust_list, 0, 3*sizeof(long));
+-
 -		/* The following call unmaps the thread's stack mapping
 -		 * and then exits without touching the stack. */
 -		__unmapself(self->map_base, self->map_size);
@@ -46,30 +47,30 @@ index 439ee36..d7d5da9 100644
 +		 */
 +		__uk_unmapself(self->map_base, self->map_size);
  	}
- 
- 	for (;;) __syscall(SYS_exit, 0);
-@@ -181,7 +192,10 @@ static void init_file_lock(FILE *f)
+
+ 	/* Wake any joiner. */
+@@ -230,6 +240,11 @@ static void init_file_lock(FILE *f)
  	if (f && f->lock<0) f->lock = 0;
  }
- 
--void *__copy_tls(unsigned char *);
+
 +/*
 + * Unikraft version of `__copy_tls()`
 + */
 +void *__uk_copy_tls(unsigned char *);
- 
++
  int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict attrp, void *(*entry)(void *), void *restrict arg)
  {
-@@ -237,7 +251,7 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+ 	int ret, c11 = (attrp == __ATTRP_C11_THREAD);
+@@ -283,7 +298,7 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
  	} else {
  		guard = ROUND(attr._a_guardsize);
  		size = guard + ROUND(attr._a_stacksize
 -			+ libc.tls_size +  __pthread_tsd_size);
 +			+ libc.tls_size  + libc.tls_align +  __pthread_tsd_size);
  	}
- 
+
  	if (!tsd) {
-@@ -255,12 +269,12 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+@@ -301,12 +316,12 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
  		}
  		tsd = map + size - __pthread_tsd_size;
  		if (!stack) {
@@ -78,12 +79,12 @@ index 439ee36..d7d5da9 100644
  			stack_limit = map + guard;
  		}
  	}
- 
+
 -	new = __copy_tls(tsd - libc.tls_size);
 +	new = __uk_copy_tls(tsd - libc.tls_size);
  	new->map_base = map;
  	new->map_size = size;
  	new->stack = stack;
--- 
-2.17.1
+--
+2.38.1
 

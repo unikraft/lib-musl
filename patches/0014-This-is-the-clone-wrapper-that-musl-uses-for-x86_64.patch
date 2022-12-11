@@ -14,12 +14,12 @@ Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
  1 file changed, 44 insertions(+), 23 deletions(-)
 
 diff --git a/src/thread/x86_64/clone.s b/src/thread/x86_64/clone.s
-index ee59903..f7ac156 100644
+index 6e47bc0..b917159 100644
 --- a/src/thread/x86_64/clone.s
 +++ b/src/thread/x86_64/clone.s
-@@ -1,27 +1,48 @@
- .text
+@@ -2,27 +2,48 @@
  .global __clone
+ .hidden __clone
  .type   __clone,@function
 +/* call conv:   rdi         rsi         rdx         rcx       r8       r9      8(%rsp) */
 +/* clone wrap:  func        stack       flags       arg       ptid     tls     ctid    */
@@ -89,6 +89,6 @@ index ee59903..f7ac156 100644
 +    hlt
 +1:  add $8,%rsp
 +    ret
--- 
-2.17.1
+--
+2.38.1
 

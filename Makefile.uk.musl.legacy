@@ -21,11 +21,8 @@ LIBMUSL_LEGACY_HDRS-y += $(LIBMUSL)/include/unistd.h
 LIBMUSL_LEGACY_HDRS-y += $(LIBMUSL)/include/utmpx.h
 
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/cuserid.c
-#LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/daemon.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/err.c
-#LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/euidaccess.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/ftw.c
-#LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/futimes.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/getdtablesize.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/getloadavg.c
 ifneq ($(CONFIG_LIBPOSIX_SYSINFO),y)
@@ -34,7 +31,6 @@ endif
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/getpass.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/getusershell.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/isastream.c
-#LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/lutimes.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/ulimit.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/utmpx.c
 LIBMUSL_LEGACY_SRCS-y += $(LIBMUSL)/src/legacy/valloc.c

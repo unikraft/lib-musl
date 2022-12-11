@@ -14,26 +14,26 @@ Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/src/unistd/setxid.c b/src/unistd/setxid.c
-index 0239f8a..d994de9 100644
+index 487c1a1..4441c1c 100644
 --- a/src/unistd/setxid.c
 +++ b/src/unistd/setxid.c
-@@ -3,6 +3,7 @@
+@@ -2,6 +2,7 @@
+ #include <signal.h>
  #include "syscall.h"
  #include "libc.h"
- #include "pthread_impl.h"
 +#include <uk/syscall.h>
- 
+
  struct ctx {
  	int id, eid, sid;
-@@ -13,7 +14,7 @@ static void do_setxid(void *p)
+@@ -12,7 +13,7 @@ static void do_setxid(void *p)
  {
  	struct ctx *c = p;
- 	if (c->err>0) return;
--	int ret = -__syscall(c->nr, c->id, c->eid, c->sid);
+ 	if (c->ret<0) return;
+-	int ret = __syscall(c->nr, c->id, c->eid, c->sid);
 +	int ret = -uk_syscall_r(c->nr, c->id, c->eid, c->sid);
- 	if (ret && !c->err) {
+ 	if (ret && !c->ret) {
  		/* If one thread fails to set ids after another has already
  		 * succeeded, forcibly killing the process is the only safe
--- 
-2.17.1
+--
+2.38.1
 

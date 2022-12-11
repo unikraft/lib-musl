@@ -9,16 +9,18 @@ Signed-off-by: gaulthier gain <gaulthier.gain@uliege.be>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/unistd/isatty.c b/src/unistd/isatty.c
-index c8badaf..a0f34d5 100644
+index 75a9c18..960a588 100644
 --- a/src/unistd/isatty.c
 +++ b/src/unistd/isatty.c
-@@ -5,5 +5,5 @@
+@@ -6,7 +6,7 @@
  int isatty(int fd)
  {
  	struct winsize wsz;
--	return !__syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz);
-+	return 1; //!__syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz);
- }
--- 
-2.17.1
+-	unsigned long r = syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz);
++	unsigned long r = 0; //__syscall(SYS_ioctl, fd, TIOCGWINSZ, &wsz);
+ 	if (r == 0) return 1;
+ 	if (errno != EBADF) errno = ENOTTY;
+ 	return 0;
+--
+2.38.1
 

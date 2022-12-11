@@ -36,15 +36,5 @@ LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/dlsym.c
 endif
 
 endif
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/microblaze/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/mips/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/mips64/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/mipsn32/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/or1k/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/powerpc/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/powerpc64/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/s390x/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/sh/dlsym.s
-#LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/x32/dlsym.s
 
 $(eval $(call _libmusl_import_lib,ldso,$(LIBMUSL_LDSO_HDRS-y),$(LIBMUSL_LDSO_SRCS-y)))

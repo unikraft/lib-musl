@@ -9,18 +9,18 @@ Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/thread/__syscall_cp.c b/src/thread/__syscall_cp.c
-index 09a2be8..e22e75b 100644
+index 42a0167..b0438af 100644
 --- a/src/thread/__syscall_cp.c
 +++ b/src/thread/__syscall_cp.c
-@@ -8,7 +8,7 @@ static long sccp(syscall_arg_t nr,
+@@ -7,7 +7,7 @@ static long sccp(syscall_arg_t nr,
                   syscall_arg_t u, syscall_arg_t v, syscall_arg_t w,
                   syscall_arg_t x, syscall_arg_t y, syscall_arg_t z)
  {
--	return (__syscall)(nr, u, v, w, x, y, z);
+-	return __syscall(nr, u, v, w, x, y, z);
 +	return (uk_syscall)(nr, u, v, w, x, y, z);
  }
 
  weak_alias(sccp, __syscall_cp_c);
 --
-2.20.1
+2.38.1
 

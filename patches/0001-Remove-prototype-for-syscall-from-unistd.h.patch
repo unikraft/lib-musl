@@ -14,13 +14,13 @@ diff --git a/include/unistd.h b/include/unistd.h
 index 09190af4..6ee0f1f1 100644
 --- a/include/unistd.h
 +++ b/include/unistd.h
-@@ -173,7 +173,6 @@ void setusershell(void);
+@@ -177,7 +177,6 @@ void setusershell(void);
  void endusershell(void);
  char *getusershell(void);
  int acct(const char *);
 -long syscall(long, ...);
  int execvpe(const char *, char *const [], char *const []);
  int issetugid(void);
- #endif
+ int getentropy(void *, size_t);
 --
-2.23.0
+2.38.1

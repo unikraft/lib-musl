@@ -9,18 +9,18 @@ Signed-off-by: gaulthier gain <gaulthier.gain@uliege.be>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/unistd.h b/include/unistd.h
-index 6ee0f1f..452f004 100644
+index 3e6356a..31729fe 100644
 --- a/include/unistd.h
 +++ b/include/unistd.h
-@@ -250,7 +250,7 @@ int eaccess(const char *, int);
- 
+@@ -258,7 +258,7 @@ pid_t gettid(void);
+
  #include <bits/posix.h>
- 
+
 -
 +#define _SC_LEVEL1_DCACHE_LINESIZE 130
- 
+
  #define _PC_LINK_MAX	0
  #define _PC_MAX_CANON	1
--- 
-2.17.1
+--
+2.38.1
 

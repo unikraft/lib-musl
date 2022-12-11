@@ -110,9 +110,5 @@ LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/usleep.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/write.c
 LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/writev.c
 
-#LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/mips/pipe.s
-#LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/mips64/pipe.s
-#LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/mipsn32/pipe.s
-#LIBMUSL_UNISTD_SRCS-y += $(LIBMUSL)/src/unistd/sh/pipe.s
 
 $(eval $(call _libmusl_import_lib,unistd,$(LIBMUSL_UNISTD_HDRS-y),$(LIBMUSL_UNISTD_SRCS-y)))

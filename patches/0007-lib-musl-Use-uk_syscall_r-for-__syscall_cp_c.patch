@@ -14,18 +14,18 @@ Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/thread/pthread_cancel.c b/src/thread/pthread_cancel.c
-index 3d22922..8321734 100644
+index 2f9d5e9..044bd76 100644
 --- a/src/thread/pthread_cancel.c
 +++ b/src/thread/pthread_cancel.c
-@@ -30,7 +30,7 @@ long __syscall_cp_c(syscall_arg_t nr,
- 
+@@ -28,7 +28,7 @@ long __syscall_cp_c(syscall_arg_t nr,
+
  	if ((st=(self=__pthread_self())->canceldisable)
  	    && (st==PTHREAD_CANCEL_DISABLE || nr==SYS_close))
 -		return __syscall(nr, u, v, w, x, y, z);
 +		return uk_syscall6_r(nr, u, v, w, x, y, z);
- 
+
  	r = __syscall_cp_asm(&self->cancel, nr, u, v, w, x, y, z);
  	if (r==-EINTR && nr!=SYS_close && self->cancel &&
--- 
-2.17.1
+--
+2.38.1
 
