@@ -95,7 +95,7 @@ void *__uk_copy_tls(unsigned char *mem)
 	ukarch_tls_area_init(tls_area);
 
 	td = (pthread_t) ukarch_tls_tcb_get(ukarch_tls_tlsp(tls_area));
-	td->dtv = td->dtv_copy = tls_area;
+	td->dtv = tls_area;
 
 	return td;
 }
@@ -107,7 +107,8 @@ static int __uk_init_tp(void *p)
 {
 	pthread_t td = p;
 
-	td->self = td;
+	/* Musl maintains a circular doubly linked list for threads. */
+	td->self = td->next = td->prev = td;
 	/*
 	 * Set the `$fs` register for the current thread.
 	 * In the original code of musl this will use an `arch_prtcl`

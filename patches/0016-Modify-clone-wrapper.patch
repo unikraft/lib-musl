@@ -9,13 +9,13 @@ Signed-off-by: Robert Kuban <robert.kuban@opensynergy.com>
  1 file changed, 16 insertions(+), 8 deletions(-)
 
 diff --git a/src/thread/aarch64/clone.s b/src/thread/aarch64/clone.s
-index 50af913c..cd1f956b 100644
+index e3c8339..0b8abeb 100644
 --- a/src/thread/aarch64/clone.s
 +++ b/src/thread/aarch64/clone.s
-@@ -1,12 +1,19 @@
+@@ -1,13 +1,20 @@
  // __clone(func, stack, flags, arg, ptid, tls, ctid)
  //         x0,   x1,    w2,    x3,  x4,   x5,  x6
- 
+
 -// syscall(SYS_clone, flags, stack, ptid, tls, ctid)
 -//         x8,        x0,    x1,    x2,   x3,  x4
 +// see: lib/posix-process/clone.c
@@ -25,8 +25,9 @@ index 50af913c..cd1f956b 100644
 +// see: lib/posix-process/process.c
 +// uk_syscall_r_exit(status)
 +//                   x0
- 
+
  .global __clone
+ .hidden __clone
  .type   __clone,%function
  __clone:
 +	stp x29, x30, [sp, #-16]!
@@ -34,14 +35,14 @@ index 50af913c..cd1f956b 100644
  	// align stack and save func,arg
  	and x1,x1,#-16
  	stp x0,x3,[x1,#-16]!
-@@ -16,14 +23,15 @@ __clone:
+@@ -17,14 +24,15 @@ __clone:
  	mov x2,x4
  	mov x3,x5
  	mov x4,x6
 -	mov x8,#220 // SYS_clone
 -	svc #0
 +	bl uk_syscall_r_clone
- 
+
  	cbz x0,1f
  	// parent
 +	ldp x29, x30, [sp], #16
@@ -56,6 +57,6 @@ index 50af913c..cd1f956b 100644
 +	mov x0, xzr
 +	bl uk_syscall_r_exit
 +	wfi
--- 
-2.25.1
+--
+2.38.1
 

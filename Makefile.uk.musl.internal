@@ -1,6 +1,7 @@
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/ctype.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/elf.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/features.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/float.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/src/internal/floatscan.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/src/internal/libc.h
@@ -11,38 +12,24 @@ LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/src/internal/shgetc.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/stdint.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/stdio.h
 LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/string.h
-LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
-LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/src/internal/version.h
+LIBMUSL_INTERNAL_HDRS-y += $(LIBMUSL)/include/syscall.h
 
+
+LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/defsysinfo.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/floatscan.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/intscan.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/libc.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/procfdname.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/shgetc.c
-LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/syscall.c|internal
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/syscall_ret.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/vdso.c
 LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/version.c
 
+
 #ifeq (arm,$(CONFIG_UK_ARCH))
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/arm/syscall.s|arm
 #else ifeq (x86_32,$(CONFIG_UK_ARCH))
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/i386/syscall.s|i386
 #else ifeq (x86_64,$(CONFIG_UK_ARCH))
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/x86_64/syscall.s|x86_64
 #endif
 
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/aarch64/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/microblaze/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/mips/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/mips64/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/mipsn32/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/or1k/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/powerpc/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/powerpc64/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/s390x/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/sh/__shcall.c
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/sh/syscall.s
-#LIBMUSL_INTERNAL_SRCS-y += $(LIBMUSL)/src/internal/x32/syscall.s|x32
 
 $(eval $(call _libmusl_import_lib,internal,$(LIBMUSL_INTERNAL_HDRS-y),$(LIBMUSL_INTERNAL_SRCS-y)))

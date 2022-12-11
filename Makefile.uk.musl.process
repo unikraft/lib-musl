@@ -1,8 +1,10 @@
+LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/internal/aio_impl.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/errno.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/fcntl.h
-LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/process/fdop.h
+LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/internal/fork_impl.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/internal/libc.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/limits.h
+LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/internal/lock.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/sched.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/signal.h
@@ -10,24 +12,13 @@ LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/spawn.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/stdarg.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/stdlib.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/string.h
-LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
+LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/syscall.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/sys/wait.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/unistd.h
 
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execl.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execle.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execlp.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execv.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execve.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execvp.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/fexecve.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/fork.c
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn.c
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addclose.c
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_adddup2.c
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addopen.c
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_destroy.c
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_init.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/_Fork.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_destroy.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_getflags.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_getpgroup.c
@@ -39,8 +30,14 @@ LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setflags.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setpgroup.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigdefault.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnattr_setsigmask.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawnp.c
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/system.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addchdir.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addclose.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_adddup2.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addfchdir.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_addopen.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_destroy.c
+LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/posix_spawn_file_actions_init.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/wait.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitid.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitpid.c
@@ -53,8 +50,5 @@ else
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/vfork.c
 endif
 
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/s390x/vfork.s
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/sh/vfork.s
-#LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/x32/vfork.s
 
 $(eval $(call _libmusl_import_lib,process,$(LIBMUSL_PROCESS_HDRS-y),$(LIBMUSL_PROCESS_SRCS-y)))

@@ -40,12 +40,32 @@ void *malloc(size_t size)
 	return uk_malloc(uk_alloc_get_default(), size);
 }
 
+void *__libc_malloc(size_t size)
+{
+	return uk_malloc(uk_alloc_get_default(), size);
+}
+
+void *__libc_malloc_impl(size_t size)
+{
+	return uk_malloc(uk_alloc_get_default(), size);
+}
+
 void *calloc(size_t nmemb, size_t size)
 {
 	return uk_calloc(uk_alloc_get_default(), nmemb, size);
 }
 
+void *__libc_calloc(size_t nmemb, size_t size)
+{
+	return uk_calloc(uk_alloc_get_default(), nmemb, size);
+}
+
 void *realloc(void *ptr, size_t size)
+{
+	return uk_realloc(uk_alloc_get_default(), ptr, size);
+}
+
+void *__libc_realloc(void *ptr, size_t size)
 {
 	return uk_realloc(uk_alloc_get_default(), ptr, size);
 }
@@ -62,6 +82,11 @@ void *memalign(size_t align, size_t size)
 }
 
 void free(void *ptr)
+{
+	return uk_free(uk_alloc_get_default(), ptr);
+}
+
+void __libc_free(void *ptr)
 {
 	return uk_free(uk_alloc_get_default(), ptr);
 }

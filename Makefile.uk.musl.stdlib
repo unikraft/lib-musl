@@ -3,7 +3,6 @@ LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/ctype.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/src/internal/floatscan.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/src/internal/intscan.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/inttypes.h
-LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/src/internal/libc.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/limits.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/src/internal/shgetc.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/stdint.h
@@ -13,6 +12,7 @@ LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/stdlib.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/string.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/wchar.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/wctype.h
+
 
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/abs.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/atof.c
@@ -31,6 +31,7 @@ LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/ldiv.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/llabs.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/lldiv.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/qsort.c
+LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/qsort_nr.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/strtod.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/strtol.c
 LIBMUSL_STDLIB_SRCS-y += $(LIBMUSL)/src/stdlib/wcstod.c

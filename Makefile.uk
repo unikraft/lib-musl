@@ -35,10 +35,17 @@
 ################################################################################
 # This will reserve space within `uk_tls` for the pthread structure in Musl.
 # Please refer to ./arch/Makefile.rules for more details.
-# For this version of Musl the size of "struct pthread" is 280.
+# For this version of Musl the size of "struct pthread" is 200.
 ################################################################################
-$(eval $(call ukarch_tls_tcb_reserve,280))
+$(eval $(call ukarch_tls_tcb_reserve,200))
 
+################################################################################
+# On aarch64, newer versions of musl no longer expect a 16-byte reserved block
+# at the end of the TCB. See: https://www.openwall.com/lists/musl/2018/06/01/14
+################################################################################
+ifeq (arm64,$(CONFIG_UK_ARCH))
+$(eval $(call aarch64_no_reserved_tcb_overlap))
+endif
 
 ################################################################################
 # Library registration
@@ -53,7 +60,7 @@ $(eval $(call addlib_s,libmuslglue,$(CONFIG_LIBMUSL)))
 ################################################################################
 # Sources
 ################################################################################
-LIBMUSL_VERSION=1.1.19
+LIBMUSL_VERSION=1.2.3
 LIBMUSL_URL=https://www.musl-libc.org/releases/musl-$(LIBMUSL_VERSION).tar.gz
 LIBMUSL_PATCHDIR=$(LIBMUSL_BASE)/patches
 $(eval $(call fetch,libmusl,$(LIBMUSL_URL)))
@@ -76,6 +83,16 @@ MUSL_ARCH = $(subst arm64,aarch64,$(ARCH))
 LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/$(MUSL_ARCH)
 LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL)/arch/generic
 LIBMUSL_GLOBAL_INCLUDES-y   += -I$(LIBMUSL_BASE)/include
+
+# Newer versions of Musl define internal wrapper headers for implementing some
+# of the standard library headers (unistd.h, string.h etc.). These wrappers have exactly
+# the same name as their standard counterparts, and they must be included very early in
+# the include search path (i.e. before the CINCLUDES) for Musl source files. Due to how the
+# build system is set up (see support/build/Makefile.rules), the only way we can do this
+# is through the LIBMUSL_COMPFLAGS variable.
+LIBMUSL_COMPFLAGS-y += -I$(LIBMUSL)/arch/$(MUSL_ARCH)
+LIBMUSL_COMPFLAGS-y += -I$(LIBMUSL)/src/include
+LIBMUSL_COMPFLAGS-y += -I$(LIBMUSL)/src/internal
 
 CINCLUDES-y    += $(LIBMUSL_GLOBAL_INCLUDES-y)
 CXXINCLUDES-y  += $(LIBMUSL_GLOBAL_INCLUDES-y)
@@ -139,6 +156,8 @@ LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/mem.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_init_tls.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_unmapself.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__set_thread_area.c
+LIBMUSLGLUE_COMPFLAGS-y += -I$(LIBMUSL)/src/include
+LIBMUSLGLUE_COMPFLAGS-y += -I$(LIBMUSL)/src/internal
 LIBMUSLGLUE_CINCLUDES += -I$(LIBMUSL)/src/internal
 
 ################################################################################

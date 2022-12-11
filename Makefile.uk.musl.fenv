@@ -21,18 +21,5 @@ else
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/fenv.c
 endif
 
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips/fenv-sf.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips/fenv.S
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips64/fenv-sf.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mips64/fenv.S
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mipsn32/fenv-sf.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/mipsn32/fenv.S
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/powerpc/fenv-sf.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/powerpc/fenv.S
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/powerpc64/fenv.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/s390x/fenv.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/sh/fenv-nofpu.c
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/sh/fenv.S
-#LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/x32/fenv.s
 
 $(eval $(call _libmusl_import_lib,fenv,$(LIBMUSL_FENV_HDRS-y),$(LIBMUSL_FENV_SRCS-y)))

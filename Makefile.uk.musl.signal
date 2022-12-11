@@ -1,15 +1,16 @@
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/errno.h
+LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/features.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/src/internal/ksigaction.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/src/internal/libc.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/limits.h
+LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/src/internal/lock.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/setjmp.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/signal.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/stdint.h
-LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/stdio.h
+LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/src/internal/stdio_impl.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/string.h
-LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
-LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/sys/syscall.h
+LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/syscall.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/sys/time.h
 LIBMUSL_SIGNAL_HDRS-y += $(LIBMUSL)/include/unistd.h
 
@@ -52,7 +53,6 @@ LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigrelse.c
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigrtmax.c
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigrtmin.c
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigset.c
-LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigsetjmp.c
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigsetjmp_tail.c
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigsuspend.c
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sigtimedwait.c
@@ -75,24 +75,5 @@ else
 LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/restore.c
 endif
 
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/microblaze/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/microblaze/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/mips/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/mips/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/mips64/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/mips64/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/mipsn32/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/mipsn32/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/or1k/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/powerpc/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/powerpc/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/powerpc64/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/powerpc64/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/s390x/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/s390x/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sh/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/sh/sigsetjmp.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/x32/restore.s
-#LIBMUSL_SIGNAL_SRCS-y += $(LIBMUSL)/src/signal/x32/sigsetjmp.s
 
 $(eval $(call _libmusl_import_lib,signal,$(LIBMUSL_SIGNAL_HDRS-y),$(LIBMUSL_SIGNAL_SRCS-y)))

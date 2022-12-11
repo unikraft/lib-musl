@@ -53,6 +53,7 @@ LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/fallocate.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/fanotify.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/flock.c
 LIBMUSL_LINUX_SRCS-$(CONFIG_LIBUKSWRAND) += $(LIBMUSL)/src/linux/getrandom.c
+LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/getdents.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/inotify.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/ioperm.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/iopl.c
@@ -96,6 +97,5 @@ LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/vmsplice.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/wait3.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/wait4.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/xattr.c
-#LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/x32/sysinfo.c
 
 $(eval $(call _libmusl_import_lib,linux,$(LIBMUSL_LINUX_HDRS-y),$(LIBMUSL_LINUX_SRCS-y)))
