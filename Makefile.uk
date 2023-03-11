@@ -141,6 +141,9 @@ LIBMUSL_CFLAGS-y += -Wno-missing-braces
 LIBMUSL_CFLAGS-$(call gcc_version_ge,8,0) += -Wno-cast-function-type
 LIBMUSL_CFLAGS-y += -Wno-format-contains-nul
 LIBMUSL_CFLAGS-y += -Wno-type-limits
+ifeq ($(CONFIG_LIBMUSL_COMPLEX),y)
+LIBMUSL_CFLAGS-$(call have_clang) += -ffast-math
+endif
 LIBMUSL_CFLAGS-y += -DUK_LIBC_SYSCALL=0
 LIBMUSL_CFLAGS-y += -D_XOPEN_SOURCE=700
 LIBMUSL_CFLAGS-y += $(LIBMUSL_HDRS_FLAGS-y)
