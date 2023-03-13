@@ -96,6 +96,7 @@ void *__uk_copy_tls(unsigned char *mem)
 
 	td = (pthread_t) ukarch_tls_tcb_get(ukarch_tls_tlsp(tls_area));
 	td->dtv = tls_area;
+	td->self = td->next = td->prev = td;
 
 	return td;
 }
@@ -182,7 +183,7 @@ int uk_thread_uktcb_init(struct uk_thread *thread, void *tcb)
 
 	td->stack = thread->_mem.stack;
 	td->stack_size = __STACK_SIZE;
-	td->self = td;
+	td->self = td->next = td->prev = td;
 	td->tsd = (void *)uk_memalign(
 		uk_alloc_get_default(),
 		__PAGE_SIZE,
