@@ -98,6 +98,11 @@ config LIBMUSL_LOCALE
   bool "liblocale"
   default y
 
+config LIBMUSL_LOCALE_LEGACY
+  bool "Enable legacy locales"
+  depends on LIBMUSL_LOCALE
+  default y
+
 config LIBMUSL_MALLOC
   bool "libmalloc"
   default y
