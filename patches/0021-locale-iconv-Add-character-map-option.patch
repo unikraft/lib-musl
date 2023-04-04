@@ -1,0 +1,119 @@
+From 9bde85765c75459a1a43060a69d8dc39e1eaeba0 Mon Sep 17 00:00:00 2001
+From: Tu Dinh Ngoc <dinhngoc.tu@irit.fr>
+Date: Tue, 4 Apr 2023 20:07:08 +0000
+Subject: [PATCH] locale/iconv: Add character map option
+
+Musl's `iconv` includes lots of character sets by default. Provide an option
+to disable most of them.
+
+Signed-off-by: Tu Dinh Ngoc <dinhngoc.tu@irit.fr>
+---
+ src/locale/codepages.h |  3 ++-
+ src/locale/iconv.c     | 10 ++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/locale/codepages.h b/src/locale/codepages.h
+index 4e236ef..bec76af 100644
+--- a/src/locale/codepages.h
++++ b/src/locale/codepages.h
+@@ -2,6 +2,7 @@
+ "latin1\0"
+ "\0\100"
+
++#if CONFIG_LIBMUSL_LOCALE_LEGACY
+ "iso88592\0"
+ "\0\50"
+ "\240\20\364\127\116\244\334\364\324\51\250\124\65\125\126\156\265\42\27\134"
+@@ -317,4 +318,4 @@
+ "\115\70\361\4\24\121\110\221\313\76\374\344\243\317\77\134\334\63\5\25"
+ "\125\130\161\5\26\131\150\41\13\65\326\110\63\115\65\60\304\40\303\14"
+ "\64\324\140\303\15\70\344\60\313\66\334\144\243\315\47"
+-
++#endif
+diff --git a/src/locale/iconv.c b/src/locale/iconv.c
+index 3047c27..0d17ace 100644
+--- a/src/locale/iconv.c
++++ b/src/locale/iconv.c
+@@ -48,6 +48,7 @@ static const unsigned char charmaps[] =
+ "utf16\0\0\312"
+ "ucs4\0utf32\0\0\313"
+ "ucs2\0\0\314"
++#if CONFIG_LIBMUSL_LOCALE_LEGACY
+ "eucjp\0\0\320"
+ "shiftjis\0sjis\0\0\321"
+ "iso2022jp\0\0\322"
+@@ -56,6 +57,7 @@ static const unsigned char charmaps[] =
+ "gb2312\0\0\332"
+ "big5\0bigfive\0cp950\0big5hkscs\0\0\340"
+ "euckr\0ksc5601\0ksx1001\0cp949\0\0\350"
++#endif
+ #include "codepages.h"
+ ;
+
+@@ -66,6 +68,7 @@ static const unsigned short legacy_chars[] = {
+ #include "legacychars.h"
+ };
+
++#if CONFIG_LIBMUSL_LOCALE_LEGACY
+ static const unsigned short jis0208[84][94] = {
+ #include "jis0208.h"
+ };
+@@ -89,6 +92,7 @@ static const unsigned short ksc[93][94] = {
+ static const unsigned short rev_jis[] = {
+ #include "revjis.h"
+ };
++#endif
+
+ static int fuzzycmp(const unsigned char *a, const unsigned char *b)
+ {
+@@ -205,6 +209,7 @@ static unsigned legacy_map(const unsigned char *map, unsigned c)
+ 	return x < 256 ? x : legacy_chars[x-256];
+ }
+
++#if CONFIG_LIBMUSL_LOCALE_LEGACY
+ static unsigned uni_to_jis(unsigned c)
+ {
+ 	unsigned nel = sizeof rev_jis / sizeof *rev_jis;
+@@ -223,6 +228,7 @@ static unsigned uni_to_jis(unsigned c)
+ 		}
+ 	}
+ }
++#endif
+
+ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restrict out, size_t *restrict outb)
+ {
+@@ -319,6 +325,7 @@ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restri
+ 			}
+ 			type = scd->state;
+ 			continue;
++#if CONFIG_LIBMUSL_LOCALE_LEGACY
+ 		case SHIFT_JIS:
+ 			if (c < 128) break;
+ 			if (c-0xa1 <= 0xdf-0xa1) {
+@@ -518,6 +525,7 @@ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restri
+ 			c = ksc[c][d];
+ 			if (!c) goto ilseq;
+ 			break;
++#endif
+ 		default:
+ 			if (!c) break;
+ 			c = legacy_map(map, c);
+@@ -559,6 +567,7 @@ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restri
+ 				}
+ 			}
+ 			goto subst;
++#if CONFIG_LIBMUSL_LOCALE_LEGACY
+ 		case SHIFT_JIS:
+ 			if (c < 128) goto revout;
+ 			if (c == 0xa5) {
+@@ -632,6 +641,7 @@ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restri
+ 			*(*out)++ = 'B';
+ 			*outb -= 8;
+ 			break;
++#endif
+ 		case UCS2:
+ 			totype = UCS2BE;
+ 		case UCS2BE:
+--
+2.34.1
+
