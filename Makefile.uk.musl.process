@@ -14,6 +14,8 @@ LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/stdlib.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/string.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/syscall.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/sys/wait.h
+LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/sys/ucontext.h
+LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/ucontext.h
 LIBMUSL_PROCESS_HDRS-y += $(LIBMUSL)/include/unistd.h
 
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/execve.c
