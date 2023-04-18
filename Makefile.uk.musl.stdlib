@@ -6,6 +6,7 @@ LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/inttypes.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/limits.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/src/internal/shgetc.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/stdint.h
+LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/stdalign.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/stdio.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/src/internal/stdio_impl.h
 LIBMUSL_STDLIB_HDRS-y += $(LIBMUSL)/include/stdlib.h
