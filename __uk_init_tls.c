@@ -135,7 +135,7 @@ static int __uk_init_tp(void *p)
 	 * might happen.
 	 */
 	if (uk_thread_current()) {
-		td->tid = uk_syscall_r_set_tid_address(&td->tid);
+		td->tid = (int)uk_syscall_r_set_tid_address((long)&td->tid);
 		if (td->tid < 0)
 			td->tid = 0;
 	} else {
