@@ -11,7 +11,7 @@ LIBMUSL_EXIT_HDRS-y += $(LIBMUSL)/include/stdlib.h
 LIBMUSL_EXIT_HDRS-y += $(LIBMUSL)/include/syscall.h
 
 
-LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/abort.c
+LIBMUSL_EXIT_SRCS-y += $(LIBMUSL_BASE)/abort.c
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/abort_lock.c
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/assert.c
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/atexit.c
