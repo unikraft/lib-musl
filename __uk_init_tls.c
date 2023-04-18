@@ -176,6 +176,7 @@ static const size_t __uk_tsd_size = sizeof(void *) * PTHREAD_KEYS_MAX;
  */
 int uk_thread_uktcb_init(struct uk_thread *thread, void *tcb)
 {
+	struct pthread *self = pthread_self();
 	struct pthread *td = (struct pthread *) tcb;
 
 	uk_pr_debug("%s uk_thread %p, tcb %p\n", __func__, thread, tcb);
@@ -187,7 +188,15 @@ int uk_thread_uktcb_init(struct uk_thread *thread, void *tcb)
 		uk_alloc_get_default(),
 		__PAGE_SIZE,
 		__uk_tsd_size);
+	/* musl expects that the tsd area is zero-initialized and will not
+	 * zero the pointers on pthread_key_create.
+	 */
+	memset(td->tsd, 0, __uk_tsd_size);
 	td->locale = &libc.global_locale;
+	td->next = self->next;
+	td->prev = self;
+	td->next->prev = td;
+	td->prev->next = td;
 
 	return 0;
 }
