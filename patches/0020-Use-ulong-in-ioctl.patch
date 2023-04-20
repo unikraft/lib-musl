@@ -1,0 +1,13 @@
+diff --git a/include/sys/ioctl.h b/include/sys/ioctl.h
+index a9a2346..fed6b30 100644
+--- a/include/sys/ioctl.h
++++ b/include/sys/ioctl.h
+@@ -112,7 +112,7 @@ extern "C" {
+ #define SIOCDEVPRIVATE     0x89F0
+ #define SIOCPROTOPRIVATE   0x89E0
+ 
+-int ioctl (int, int, ...);
++int ioctl (int, unsigned long, ...);
+ 
+ #ifdef __cplusplus
+ }
