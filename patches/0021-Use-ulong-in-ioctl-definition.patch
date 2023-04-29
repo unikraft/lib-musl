@@ -1,0 +1,30 @@
+From 99e8a77e67e5a032f7e299d3c7466de00618d926 Mon Sep 17 00:00:00 2001
+From: Stefan Jumarea <stefanjumarea02@gmail.com>
+Date: Sat, 29 Apr 2023 21:47:59 +0300
+Subject: [PATCH] [PATCH]: Change signature for ioctl
+
+The `ioctl()` function signature should be modified to match the definition
+in Linux, glibc and our own implementation, since using `int` has lead
+to a lot of problems (e.g. overflow into sign bit).
+
+Signed-off-by: Stefan Jumarea <stefanjumarea02@gmail.com>
+---
+ src/misc/ioctl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/misc/ioctl.c b/src/misc/ioctl.c
+index 35804f02..ea4e9111 100644
+--- a/src/misc/ioctl.c
++++ b/src/misc/ioctl.c
+@@ -125,7 +125,7 @@ static void convert_ioctl_struct(const struct ioctl_compat_map *map, char *old,
+ 	else memcpy(new+new_offset, old+old_offset, old_size-old_offset);
+ }
+ 
+-int ioctl(int fd, int req, ...)
++int ioctl(int fd, unsigned long req, ...)
+ {
+ 	void *arg;
+ 	va_list ap;
+-- 
+2.25.1
+
