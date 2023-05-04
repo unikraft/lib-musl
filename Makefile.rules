@@ -21,6 +21,7 @@ $(LIBMUSL_BUILD)/include/$(1)/%.h:
 # includes for building libmusl
 LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/src/internal
 LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/src/$(1)
+LIBMUSL_$(call uc,$(1))_INCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
 LIBMUSL_SRCS-y += $(3)
 LIBMUSL_CINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
 LIBMUSL_CXXINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
