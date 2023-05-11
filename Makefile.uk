@@ -131,15 +131,15 @@ LIBMUSL_HDRS_FLAGS-y += -Wno-error=sign-compare
 LIBMUSL_HDRS_FLAGS-y += -Wno-builtin-macro-redefined
 
 LIBMUSL_CFLAGS-y += -Wno-implicit-fallthrough
-LIBMUSL_CFLAGS-y += -Wno-restrict
-LIBMUSL_CFLAGS-y += -Wno-unused-but-set-variable
+LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-restrict
+LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-unused-but-set-variable
 LIBMUSL_CFLAGS-y += -Wno-sign-compare
 LIBMUSL_CFLAGS-y += -Wno-empty-body
-LIBMUSL_CFLAGS-y += -Wno-maybe-uninitialized
+LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-maybe-uninitialized
 LIBMUSL_CFLAGS-y += -Wno-unknown-pragmas
 LIBMUSL_CFLAGS-y += -Wno-missing-braces
 LIBMUSL_CFLAGS-$(call gcc_version_ge,8,0) += -Wno-cast-function-type
-LIBMUSL_CFLAGS-y += -Wno-format-contains-nul
+LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-format-contains-nul
 LIBMUSL_CFLAGS-y += -Wno-type-limits
 LIBMUSL_CFLAGS-y += -DUK_LIBC_SYSCALL=0
 LIBMUSL_CFLAGS-y += -D_XOPEN_SOURCE=700
