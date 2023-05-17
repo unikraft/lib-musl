@@ -4,7 +4,7 @@ menuconfig LIBMUSL
   default n
   select HAVE_LIBC
   select LIBKUALLOC
-  select LIBUKMMAP
+  imply  LIBUKMMAP
   select LIBSYSCALL_SHIM
   select LIBVFSCORE
   select LIBPOSIX_PROCESS
