@@ -159,9 +159,12 @@ static void __uk_init_tls(void *tls_area)
 		UK_CRASH("Failed to initialize the main thread\n");
 }
 
+/* We initialize the auxiliary vector to point to a zero value */
+static size_t __libc_auxv[1] = { 0 };
+
 static void __uk_init_libc(void)
 {
-	libc.auxv = 0;
+	libc.auxv = __libc_auxv;
 	__hwcap = 0;
 	__sysinfo = 0;
 	libc.page_size = __PAGE_SIZE;
