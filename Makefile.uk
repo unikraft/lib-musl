@@ -37,7 +37,9 @@
 # Please refer to ./arch/Makefile.rules for more details.
 # For this version of Musl the size of "struct pthread" is 200.
 ################################################################################
+ifeq ($(CONFIG_LIBMUSL),y)
 $(eval $(call ukarch_tls_tcb_reserve,200))
+endif
 
 ################################################################################
 # On aarch64, newer versions of musl no longer expect a 16-byte reserved block
