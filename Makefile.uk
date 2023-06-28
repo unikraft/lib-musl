@@ -125,9 +125,7 @@ LIBMUSL_CLEAN += $(LIBMUSL)/src/internal/version.h
 # Global flags
 ################################################################################
 LIBMUSL_HDRS_FLAGS-y += -Wno-unused-parameter
-LIBMUSL_HDRS_FLAGS-y += -Wno-unused-value
 LIBMUSL_HDRS_FLAGS-y += -Wno-parentheses
-LIBMUSL_HDRS_FLAGS-y += -Wno-error=sign-compare
 LIBMUSL_HDRS_FLAGS-y += -Wno-builtin-macro-redefined
 
 LIBMUSL_CFLAGS-y += -Wno-implicit-fallthrough
@@ -139,11 +137,18 @@ LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-maybe-uninitialized
 LIBMUSL_CFLAGS-y += -Wno-unknown-pragmas
 LIBMUSL_CFLAGS-y += -Wno-missing-braces
 LIBMUSL_CFLAGS-$(call gcc_version_ge,8,0) += -Wno-cast-function-type
+LIBMUSL_CFLAGS-$(call have_clang) += -Wno-cast-function-type
 LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-format-contains-nul
 LIBMUSL_CFLAGS-y += -Wno-type-limits
+LIBMUSL_CFLAGS-$(call have_clang) += -Wno-macro-redefined
+LIBMUSL_CFLAGS-$(call have_clang) += -Wno-string-plus-int
+LIBMUSL_CFLAGS-y += -Wno-unused
+LIBMUSL_CFLAGS-$(call have_gcc) += -Wno-old-style-declaration
+LIBMUSL_CFLAGS-$(call have_clang) += -Wno-deprecated-non-prototype
 LIBMUSL_CFLAGS-y += -DUK_LIBC_SYSCALLS=0
 LIBMUSL_CFLAGS-y += -D_XOPEN_SOURCE=700
 LIBMUSL_CFLAGS-y += $(LIBMUSL_HDRS_FLAGS-y)
+LIBMUSL_ASFLAGS-y += -Wno-unused-command-line-argument
 
 # musl cannot rely on a libc library. Therefore, compile it as freestanding
 # code.
@@ -163,6 +168,7 @@ LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__set_thread_area.c
 LIBMUSLGLUE_COMPFLAGS-y += -I$(LIBMUSL)/src/include
 LIBMUSLGLUE_COMPFLAGS-y += -I$(LIBMUSL)/src/internal
 LIBMUSLGLUE_CINCLUDES += -I$(LIBMUSL)/src/internal
+LIBMUSLGLUE_CFLAGS-y += -Wno-unused-value
 
 ################################################################################
 # Core Standard Library
