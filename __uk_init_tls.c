@@ -84,6 +84,7 @@
  * map + size ----------------------------------------------------------
  */
 
+static const size_t __uk_tsd_size = sizeof(void *) * PTHREAD_KEYS_MAX;
 
 void *__uk_copy_tls(unsigned char *mem)
 {
@@ -106,6 +107,28 @@ void *__uk_copy_tls(unsigned char *mem)
 static int __uk_init_tp(void *p)
 {
 	pthread_t td = p;
+
+	/*
+	 * Clean and initialize pthread structure for init thread.
+	 * FIXME: Some fields from pthread are not initialized yet:
+	 * - information about stack
+	 * - canary
+	 */
+	memset(td, 0, sizeof(*td));
+
+	td->tsd = (void *)uk_memalign(uk_alloc_get_default(), __PAGE_SIZE,
+							__uk_tsd_size);
+	if (!td->tsd)
+		UK_CRASH("Failed to initialize init thread tsd\n");
+
+	memset(td->tsd, 0, __uk_tsd_size);
+
+	/*
+	 * The initial thread in the new image shall be joinable, as if
+	 * created with the detachstate attribute set to
+	 * PTHREAD_CREATE_JOINABLE.
+	 */
+	td->detach_state = DT_JOINABLE;
 
 	/* Musl maintains a circular doubly linked list for threads. */
 	td->self = td->next = td->prev = td;
@@ -169,8 +192,6 @@ static void __uk_init_libc(void)
 	__sysinfo = 0;
 	libc.page_size = __PAGE_SIZE;
 }
-
-static const size_t __uk_tsd_size = sizeof(void *) * PTHREAD_KEYS_MAX;
 
 /*
  * This callback will only be called for threads that are NOT
