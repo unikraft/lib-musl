@@ -98,8 +98,8 @@ LIBMUSL_COMPFLAGS-y += -I$(LIBMUSL)/arch/$(MUSL_ARCH)
 LIBMUSL_COMPFLAGS-y += -I$(LIBMUSL)/src/include
 LIBMUSL_COMPFLAGS-y += -I$(LIBMUSL)/src/internal
 
-CINCLUDES-y    += $(LIBMUSL_GLOBAL_INCLUDES-y)
-CXXINCLUDES-y  += $(LIBMUSL_GLOBAL_INCLUDES-y)
+CINCLUDES-$(CONFIG_LIBMUSL)    += $(LIBMUSL_GLOBAL_INCLUDES-y)
+CXXINCLUDES-$(CONFIG_LIBMUSL)  += $(LIBMUSL_GLOBAL_INCLUDES-y)
 
 ################################################################################
 # Musl-specific Targets
@@ -159,8 +159,8 @@ LIBMUSL_ASFLAGS-y += -Wno-unused-command-line-argument
 LIBMUSL_CFLAGS-y += -ffreestanding
 
 # We globally switch off warnings that are caused by musl's public headers
-CFLAGS += $(LIBMUSL_HDRS_FLAGS-y)
-CXXFLAGS += $(LIBMUSL_HDRS_FLAGS-y)
+CFLAGS-$(CONFIG_LIBMUSL) += $(LIBMUSL_HDRS_FLAGS-y)
+CXXFLAGS-$(CONFIG_LIBMUSL) += $(LIBMUSL_HDRS_FLAGS-y)
 
 ################################################################################
 # OS dependencies code - Glue between Unicore and musl

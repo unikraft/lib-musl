@@ -27,8 +27,8 @@ LIBMUSL_CINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
 LIBMUSL_CXXINCLUDES-y += $$(LIBMUSL_$(call uc,$(1))_INCLUDES-y)
 
 # includes for using libmusl
-CINCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
-CXXINCLUDES-y += -I$(LIBMUSL_BUILD)/include/$(1)/include
+CINCLUDES-$(CONFIG_LIBMUSL) += -I$(LIBMUSL_BUILD)/include/$(1)/include
+CXXINCLUDES-$(CONFIG_LIBMUSL) += -I$(LIBMUSL_BUILD)/include/$(1)/include
 
 # Append the sub library directory to the include path
 $(LIBMUSL_BUILD)/.prepared: $(subst $(LIBMUSL),$(LIBMUSL_BUILD)/include/$(1),$(2))
