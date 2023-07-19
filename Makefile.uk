@@ -45,8 +45,10 @@ endif
 # On aarch64, newer versions of musl no longer expect a 16-byte reserved block
 # at the end of the TCB. See: https://www.openwall.com/lists/musl/2018/06/01/14
 ################################################################################
+ifeq ($(CONFIG_LIBMUSL),y)
 ifeq (arm64,$(CONFIG_UK_ARCH))
 $(eval $(call aarch64_no_reserved_tcb_overlap))
+endif
 endif
 
 ################################################################################
