@@ -1,0 +1,35 @@
+From 301a93267aa20c0820552b7ea036111b15574946 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Eduard=20Vintil=C4=83?= <eduard.vintila47@gmail.com>
+Date: Sat, 15 Jul 2023 10:46:40 +0300
+Subject: [PATCH] patches: Add `syscall()` function prototype
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The `sys/syscall.h` header is missing a declaration for the `syscall()`
+function, which may lead to `implicit declaration` warnings that could
+be treated as errors (i.e. by the GO runtime)
+We also include Unikraft's `syscall_nrs2.h` header which provides
+definitions for the `__NR_` macros needed by some libraries.
+
+Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
+---
+ include/sys/syscall.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/sys/syscall.h b/include/sys/syscall.h
+index 918de59..de68f07 100644
+--- a/include/sys/syscall.h
++++ b/include/sys/syscall.h
+@@ -2,5 +2,8 @@
+ #define _SYS_SYSCALL_H
+ 
+ #include <uk/bits/syscall_nrs.h>
++#include <uk/bits/syscall_nrs2.h>
++
++long syscall(long n, ...);
+ 
+ #endif
+-- 
+2.40.1
+
