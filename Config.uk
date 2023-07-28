@@ -170,6 +170,7 @@ config LIBMUSL_SETJMP
 config LIBMUSL_SIGNAL
   bool "libsignal"
   default y
+  select LIBUKSIGNAL
 
 config LIBMUSL_STAT
   bool "libstat"
