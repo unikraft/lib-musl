@@ -13,6 +13,7 @@ LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/include/libgen.h
 LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/include/limits.h
 LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/src/internal/locale_impl.h
 LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/src/internal/lock.h
+LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/include/memory.h
 LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/include/mntent.h
 LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/include/pthread.h
 LIBMUSL_MISC_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
