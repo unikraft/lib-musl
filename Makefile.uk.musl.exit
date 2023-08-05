@@ -17,7 +17,7 @@ LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/assert.c
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/atexit.c
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/at_quick_exit.c
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/exit.c
-LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/_Exit.c
+LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/_Exit.c|exit
 LIBMUSL_EXIT_SRCS-y += $(LIBMUSL)/src/exit/quick_exit.c
 
 $(eval $(call _libmusl_import_lib,exit,$(LIBMUSL_EXIT_HDRS-y),$(LIBMUSL_EXIT_SRCS-y)))
