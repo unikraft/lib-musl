@@ -39,6 +39,7 @@ config LIBMUSL_AIO
 config LIBMUSL_COMPLEX
   bool "libcomplex"
   default n
+  select LIBCOMPILER_RT
 
 config LIBMUSL_CONF
   bool "libconf"
