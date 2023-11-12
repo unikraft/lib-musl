@@ -1,0 +1,45 @@
+From 8fb91d6e8d8c19897b2da965b69566efceb9f378 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Eduard=20Vintil=C4=83?= <eduard.vintila47@gmail.com>
+Date: Sun, 12 Nov 2023 01:09:14 +0200
+Subject: [PATCH] Prefault page tables used in stacks allocated for threads
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+We need to explicitly populate the page tables used for stacks in
+order to avoid infinite page fault loops during runtime. This measure
+is necessary since Unikraft on AArch64 does not switch stacks when
+handling CPU exceptions. A page fault occuring on the stack would
+cause the trap handler to save all the registers on the same stack,
+thus generating another page fault, ad infinitum.
+
+Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
+---
+ src/thread/pthread_create.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/thread/pthread_create.c b/src/thread/pthread_create.c
+index d6dd4c9..b3c5321 100644
+--- a/src/thread/pthread_create.c
++++ b/src/thread/pthread_create.c
+@@ -303,7 +303,7 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+ 
+ 	if (!tsd) {
+ 		if (guard) {
+-			map = __mmap(0, size, PROT_NONE, MAP_PRIVATE|MAP_ANON, -1, 0);
++			map = __mmap(0, size, PROT_NONE, MAP_PRIVATE|MAP_ANON|MAP_POPULATE, -1, 0);
+ 			if (map == MAP_FAILED) goto fail;
+ 			if (__mprotect(map+guard, size-guard, PROT_READ|PROT_WRITE)
+ 			    && errno != ENOSYS) {
+@@ -311,7 +311,7 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+ 				goto fail;
+ 			}
+ 		} else {
+-			map = __mmap(0, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANON, -1, 0);
++			map = __mmap(0, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANON|MAP_POPULATE, -1, 0);
+ 			if (map == MAP_FAILED) goto fail;
+ 		}
+ 		tsd = map + size - __pthread_tsd_size;
+-- 
+2.42.1
+
