@@ -135,6 +135,13 @@ config LIBMUSL_NETWORK
   bool "libnetwork"
   default y
 
+config LIBMUSL_NETWORK_LWIP_DNS
+  bool "Forward DNS requests to lwIP"
+  depends on LIBMUSL_NETWORK
+  depends on LIBLWIP
+  select LWIP_DNS
+  select LWIP_SOCKET
+
 config LIBMUSL_PASSWD
   bool "libpasswd"
   default y
