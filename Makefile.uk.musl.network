@@ -63,9 +63,13 @@ LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/dn_skipname.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/dns_parse.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/ent.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/ether.c
-LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/freeaddrinfo.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gai_strerror.c
+ifeq ($(filter y,$(CONFIG_LIBMUSL_NETWORK_LWIP_DNS)),)
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/getaddrinfo.c
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/freeaddrinfo.c
+else
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL_BASE)/lwip/getaddrinfo.c
+endif
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyaddr.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyaddr_r.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyname.c
