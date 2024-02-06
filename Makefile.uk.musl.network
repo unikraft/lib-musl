@@ -68,16 +68,17 @@ ifeq ($(filter y,$(CONFIG_LIBMUSL_NETWORK_LWIP_DNS)),)
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/getaddrinfo.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/freeaddrinfo.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/getnameinfo.c
-else
-LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL_BASE)/lwip/getaddrinfo.c
-LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL_BASE)/lwip/getnameinfo.c
-endif
-LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyaddr.c
-LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyaddr_r.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyname.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyname2.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyname2_r.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyname_r.c
+else
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL_BASE)/lwip/getaddrinfo.c
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL_BASE)/lwip/getnameinfo.c
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL_BASE)/lwip/gethostbyname.c
+endif
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyaddr.c
+LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/gethostbyaddr_r.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/getifaddrs.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/getservbyname.c
 LIBMUSL_NETWORK_SRCS-y += $(LIBMUSL)/src/network/getservbyname_r.c
