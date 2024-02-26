@@ -173,6 +173,10 @@ else ifeq (arm64,$(CONFIG_UK_ARCH))
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/__unmapself.s|aarch64
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/clone.s|aarch64
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/aarch64/syscall_cp.s|aarch64
+else ifeq (riscv64,$(CONFIG_UK_ARCH))
+LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/riscv64/clone.s|riscv64
+LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/riscv64/syscall_cp.s|riscv64
+LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/riscv64/__unmapself.s|riscv64
 else
 LIBMUSL_THREAD_SRCS-y += $(LIBMUSL)/src/thread/clone.c|thread
 endif

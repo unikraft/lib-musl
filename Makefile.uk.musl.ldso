@@ -30,6 +30,8 @@ LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/i386/tlsdesc.s|x86_32
 else ifeq (x86_64,$(CONFIG_UK_ARCH))
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/x86_64/dlsym.s|x86_64
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/x86_64/tlsdesc.s|x86_64
+else ifeq (riscv64,$(CONFIG_UK_ARCH))
+LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/riscv64/dlsym.s|riscv64
 else
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/tlsdesc.c
 LIBMUSL_LDSO_SRCS-y += $(LIBMUSL)/src/ldso/dlsym.c
