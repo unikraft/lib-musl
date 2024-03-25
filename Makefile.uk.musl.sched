@@ -4,6 +4,7 @@ LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/sys/membarrier.h
 LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/src/internal/pthread_impl.h
 LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/sched.h
 LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/string.h
+LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/include/sys/membarrier.h
 LIBMUSL_SCHED_HDRS-y += $(LIBMUSL)/src/internal/syscall.h
 
 LIBMUSL_SCHED_SRCS-y += $(LIBMUSL)/src/sched/affinity.c
