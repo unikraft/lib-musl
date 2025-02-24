@@ -189,6 +189,8 @@ config LIBMUSL_STDIO
   default y
   select LIBMUSL_FENV
   select LIBMUSL_UNISTD
+  select LIBPOSIX_TTY
+  select LIBPOSIX_TTY_STDIO
 
 config LIBMUSL_STDLIB
   bool "libstdlib"
