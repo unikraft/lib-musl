@@ -44,13 +44,4 @@ LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/wait.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitid.c
 LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/waitpid.c
 
-ifeq (x86_32,$(CONFIG_UK_ARCH))
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/i386/vfork.s|i386
-else ifeq (x86_64,$(CONFIG_UK_ARCH))
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/x86_64/vfork.s|x86_64
-else
-LIBMUSL_PROCESS_SRCS-y += $(LIBMUSL)/src/process/vfork.c
-endif
-
-
 $(eval $(call _libmusl_import_lib,process,$(LIBMUSL_PROCESS_HDRS-y),$(LIBMUSL_PROCESS_SRCS-y)))
