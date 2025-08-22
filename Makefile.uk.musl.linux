@@ -73,9 +73,7 @@ LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/readahead.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/reboot.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/remap_file_pages.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sbrk.c
-ifneq ($(CONFIG_LIBLWIP),y)
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/sendfile.c
-endif
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setfsgid.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setfsuid.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/setgroups.c
