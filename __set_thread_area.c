@@ -33,10 +33,10 @@
 #include <uk/sched.h>
 
 /*
- * Change the architecture dependent archprtcl to ukplat_tlsp_set()
+ * Change the architecture dependent archprtcl to uk_lcpu_tlsp_set()
  */
 int __set_thread_area(void *p)
 {
-	ukplat_tlsp_set((__uptr) p);
+	uk_lcpu_tlsp_set((__uptr) p);
 	return 0;
 }
