@@ -1,0 +1,26 @@
+From 806eb5a52058fe1ac1dbd85bc418d11b2e622d48 Mon Sep 17 00:00:00 2001
+From: Stefan Jumarea <stefanjumarea02@gmail.com>
+Date: Sat, 4 Mar 2023 11:39:51 +0200
+Subject: [PATCH] [PATCH]: Check if libc.auxv is NULL before derefering it
+
+Signed-off-by: Stefan Jumarea <stefanjumarea02@gmail.com>
+---
+ src/ldso/dl_iterate_phdr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/ldso/dl_iterate_phdr.c b/src/ldso/dl_iterate_phdr.c
+index 9546dd3..c869812 100644
+--- a/src/ldso/dl_iterate_phdr.c
++++ b/src/ldso/dl_iterate_phdr.c
+@@ -16,7 +16,7 @@ static int static_dl_iterate_phdr(int(*callback)(struct dl_phdr_info *info, size
+ 	struct dl_phdr_info info;
+ 	size_t i, aux[AUX_CNT] = {0};
+ 
+-	for (i=0; libc.auxv[i]; i+=2)
++	for (i=0; libc.auxv && libc.auxv[i]; i+=2)
+ 		if (libc.auxv[i]<AUX_CNT) aux[libc.auxv[i]] = libc.auxv[i+1];
+ 
+ 	for (p=(void *)aux[AT_PHDR],n=aux[AT_PHNUM]; n; n--,p+=aux[AT_PHENT]) {
+-- 
+2.25.1
+

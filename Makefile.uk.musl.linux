@@ -37,6 +37,7 @@ LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/wait.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/sys/xattr.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/time.h
 LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/unistd.h
+LIBMUSL_LINUX_HDRS-y += $(LIBMUSL)/include/ucontext.h
 
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/adjtime.c
 LIBMUSL_LINUX_SRCS-y += $(LIBMUSL)/src/linux/adjtimex.c
