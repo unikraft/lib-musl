@@ -13,6 +13,9 @@ LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/i386/setjmp.s|i386
 else ifeq (x86_64,$(CONFIG_UK_ARCH))
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/x86_64/longjmp.s|x86_64
 LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/x86_64/setjmp.s|x86_64
+else ifeq (riscv64,$(CONFIG_UK_ARCH))
+LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/riscv64/longjmp.S|riscv64
+LIBMUSL_SETJMP_SRCS-y += $(LIBMUSL)/src/setjmp/riscv64/setjmp.S|riscv64
 endif
 
 

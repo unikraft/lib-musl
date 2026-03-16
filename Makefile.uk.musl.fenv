@@ -17,6 +17,9 @@ else ifeq (x86_32,$(CONFIG_UK_ARCH))
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/i386/fenv.s|x86_32
 else ifeq (x86_64,$(CONFIG_UK_ARCH))
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/x86_64/fenv.s|x86_64
+else ifeq (riscv64,$(CONFIG_UK_ARCH))
+LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/riscv64/fenv.S|riscv64
+LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/riscv64/fenv-sf.c|riscv64
 else
 LIBMUSL_FENV_SRCS-y += $(LIBMUSL)/src/fenv/fenv.c
 endif

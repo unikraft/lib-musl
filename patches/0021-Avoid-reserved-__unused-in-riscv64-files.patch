@@ -1,0 +1,39 @@
+From 96d27048330729c8e82c75efd82536982a31f7dc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Eduard=20Vintil=C4=83?= <eduard.vintila47@gmail.com>
+Date: Tue, 14 Mar 2023 10:38:20 +0200
+Subject: [PATCH] Avoid reserved __unused in riscv64 files
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
+---
+ arch/riscv64/bits/stat.h | 2 +-
+ arch/riscv64/kstat.h     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/riscv64/bits/stat.h b/arch/riscv64/bits/stat.h
+index b7f4221..d1778f7 100644
+--- a/arch/riscv64/bits/stat.h
++++ b/arch/riscv64/bits/stat.h
+@@ -14,5 +14,5 @@ struct stat {
+ 	struct timespec st_atim;
+ 	struct timespec st_mtim;
+ 	struct timespec st_ctim;
+-	unsigned __unused[2];
++	unsigned _pad[2];
+ };
+diff --git a/arch/riscv64/kstat.h b/arch/riscv64/kstat.h
+index 92625f3..fb1087b 100644
+--- a/arch/riscv64/kstat.h
++++ b/arch/riscv64/kstat.h
+@@ -17,5 +17,5 @@ struct kstat {
+ 	long st_mtime_nsec;
+ 	long st_ctime_sec;
+ 	long st_ctime_nsec;
+-	unsigned __unused[2];
++	unsigned _pad[2];
+ };
+-- 
+2.39.1
+

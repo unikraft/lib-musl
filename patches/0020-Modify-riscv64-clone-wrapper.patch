@@ -1,0 +1,66 @@
+From 48a182ac6fc609298b946fcf1232f330e3691d49 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Eduard=20Vintil=C4=83?= <eduard.vintila47@gmail.com>
+Date: Wed, 15 Mar 2023 16:43:47 +0200
+Subject: [PATCH] Modify riscv64 `clone` wrapper
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
+---
+ src/thread/riscv64/clone.s | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/src/thread/riscv64/clone.s b/src/thread/riscv64/clone.s
+index db908248..068458b9 100644
+--- a/src/thread/riscv64/clone.s
++++ b/src/thread/riscv64/clone.s
+@@ -1,8 +1,13 @@
+ # __clone(func, stack, flags, arg, ptid, tls, ctid)
+ #           a0,    a1,    a2,  a3,   a4,  a5,   a6
+ 
+-# syscall(SYS_clone, flags, stack, ptid, tls, ctid)
+-#                a7     a0,    a1,   a2,  a3,   a4
++# see: lib/posix-process/clone.c
++# uk_syscall_r_clone(flags, stack, ptid, tlsp, ctid)
++#                    a0,    a1,    a2,   a3,   a4
++
++# see: lib/posix-process/process.c
++# uk_syscall_r_exit(status)
++#                   a0
+ 
+ .global __clone
+ .type  __clone, %function
+@@ -12,16 +17,17 @@ __clone:
+ 	sd a0, 0(a1)
+ 	sd a3, 8(a1)
+ 
+-	# Call SYS_clone
++	# Call uk_syscall_r_clone
+ 	mv a0, a2
+ 	mv a2, a4
+ 	mv a3, a5
+ 	mv a4, a6
+-	li a7, 220 # SYS_clone
+-	ecall
++	mv s1, ra # Save parent return address
++	call uk_syscall_r_clone
+ 
+ 	beqz a0, 1f
+ 	# Parent
++	mv ra, s1
+ 	ret
+ 
+ 	# Child
+@@ -30,5 +36,6 @@ __clone:
+ 	jalr a1
+ 
+ 	# Exit
+-	li a7, 93 # SYS_exit
+-	ecall
++	mv a0, x0
++	call uk_syscall_r_exit
++	wfi
+-- 
+2.39.1
+
