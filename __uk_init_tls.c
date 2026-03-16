@@ -118,12 +118,10 @@ static int __uk_init_tp(void *p)
 	 */
 	memset(td, 0, sizeof(*td));
 
-	td->tsd = (void *)uk_memalign(uk_alloc_get_default(), __PAGE_SIZE,
-							__uk_tsd_size);
-	if (!td->tsd)
-		UK_CRASH("Failed to initialize init thread tsd\n");
-
-	memset(td->tsd, 0, __uk_tsd_size);
+	/* The first call to pthread_create will set unconditionally the tsd
+	 * field to point to __pthread_tsd_main so we initialize it already to
+	 * that value */
+	td->tsd = __pthread_tsd_main;
 
 	/*
 	 * The initial thread in the new image shall be joinable, as if
