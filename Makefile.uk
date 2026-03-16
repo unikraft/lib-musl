@@ -165,7 +165,7 @@ CXXFLAGS-$(CONFIG_LIBMUSL) += $(LIBMUSL_HDRS_FLAGS-y)
 ################################################################################
 # OS dependencies code - Glue between Unicore and musl
 ################################################################################
-LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/mem.c
+#LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/mem.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_init_tls.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__uk_unmapself.c
 LIBMUSLGLUE_SRCS-y += $(LIBMUSL_BASE)/__set_thread_area.c
