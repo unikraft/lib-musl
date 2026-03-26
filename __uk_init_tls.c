@@ -42,8 +42,6 @@
 #include "syscall.h"
 
 #include <uk/alloc.h>
-#include <uk/arch/tls.h>
-#include <uk/lcpu.h>
 #include <uk/assert.h>
 
 /*
@@ -139,7 +137,7 @@ static int __uk_init_tp(void *p)
 	 * In the original code of musl this will use an `arch_prtcl`
 	 * syscall to fill the `$fs` register.
 	 */
-	uk_lcpu_tlsp_set((unsigned long) TP_ADJ(p));
+	ukplat_tlsp_set((unsigned long) TP_ADJ(p));
 	libc.can_do_threads = 1;
 	/*
 	 * The original musl code will invoke here a `SYS_set_tid_address`
