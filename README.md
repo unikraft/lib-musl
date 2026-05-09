@@ -20,5 +20,5 @@ When Musl is selected the [internal Unikraft `nolibc` library](https://github.co
 
 The default configuration doesn't include complex number support, i.e. the `LIBMUSL_COMPLEX` option is disabled (see `Config.uk`);
 see [commit `45c4aa58`](https://github.com/unikraft/lib-musl/commit/45c4aa586fa0a215ebd1bc2950f5fe249d1b965c).
-This is because, in case of using Clang to build Musl, the symbol `_muldc3` (used for complex numbers) is undefined;
-in case of using Clang and requiring complex number support, [`compiler-rt`](https://github.com/unikraft/lib-compiler-rt/) is to be included to the build.
+This is because, when building Musl, the symbol `_muldc3` (used for complex numbers) is undefined;
+in case of requiring complex number support, [`compiler-rt`](https://github.com/unikraft/lib-compiler-rt/) is to be included to the build. If strict compliance with the complex arithmetic requirements of ISO C (specifically Annex G) and IEEE 754 is not required, passing the compiler flag [`-fcx-limited-range`](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html) removes the requirement for `lib-compiler-rt`.
