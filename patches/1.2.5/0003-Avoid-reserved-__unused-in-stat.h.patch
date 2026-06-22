@@ -1,0 +1,92 @@
+From 851762e66ca264fd26240aa9349ba4db6cfdd2e6 Mon Sep 17 00:00:00 2001
+From: Gaulthier Gain <gaulthier.gain@uliege.be>
+Date: Wed, 16 Oct 2019 16:32:23 +0200
+Subject: [PATCH] Avoid reserved __unused in stat header files
+
+Field name `__unused` conflicts with Unikraft `__unused` macro.
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+Signed-off-by: Robert Kuban <robert.kuban@opensynergy.com>
+Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
+---
+ arch/aarch64/bits/stat.h | 2 +-
+ arch/aarch64/kstat.h     | 2 +-
+ arch/arm/bits/msg.h      | 2 +-
+ arch/arm/bits/shm.h      | 2 +-
+ arch/x86_64/bits/stat.h  | 2 +-
+ arch/x86_64/kstat.h      | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/aarch64/bits/stat.h b/arch/aarch64/bits/stat.h
+index b7f4221b..d1778f74 100644
+--- a/arch/aarch64/bits/stat.h
++++ b/arch/aarch64/bits/stat.h
+@@ -14,5 +14,5 @@ struct stat {
+ 	struct timespec st_atim;
+ 	struct timespec st_mtim;
+ 	struct timespec st_ctim;
+-	unsigned __unused[2];
++	unsigned _pad[2];
+ };
+diff --git a/arch/aarch64/kstat.h b/arch/aarch64/kstat.h
+index 92625f36..fb1087b4 100644
+--- a/arch/aarch64/kstat.h
++++ b/arch/aarch64/kstat.h
+@@ -17,5 +17,5 @@ struct kstat {
+ 	long st_mtime_nsec;
+ 	long st_ctime_sec;
+ 	long st_ctime_nsec;
+-	unsigned __unused[2];
++	unsigned _pad[2];
+ };
+diff --git a/arch/arm/bits/msg.h b/arch/arm/bits/msg.h
+index 7bbbb2bf..53a277f5 100644
+--- a/arch/arm/bits/msg.h
++++ b/arch/arm/bits/msg.h
+@@ -11,7 +11,7 @@ struct msqid_ds {
+ 	msglen_t msg_qbytes;
+ 	pid_t msg_lspid;
+ 	pid_t msg_lrpid;
+-	unsigned long __unused[2];
++	unsigned long _pad[2];
+ 	time_t msg_stime;
+ 	time_t msg_rtime;
+ 	time_t msg_ctime;
+diff --git a/arch/arm/bits/shm.h b/arch/arm/bits/shm.h
+index 725fb469..b32fa070 100644
+--- a/arch/arm/bits/shm.h
++++ b/arch/arm/bits/shm.h
+@@ -21,7 +21,7 @@ struct shmid_ds {
+ };
+
+ struct shminfo {
+-	unsigned long shmmax, shmmin, shmmni, shmseg, shmall, __unused[4];
++	unsigned long shmmax, shmmin, shmmni, shmseg, shmall, _pad[4];
+ };
+
+ struct shm_info {
+diff --git a/arch/x86_64/bits/stat.h b/arch/x86_64/bits/stat.h
+index 081237c3..39b3cdd4 100644
+--- a/arch/x86_64/bits/stat.h
++++ b/arch/x86_64/bits/stat.h
+@@ -18,5 +18,5 @@ struct stat {
+ 	struct timespec st_atim;
+ 	struct timespec st_mtim;
+ 	struct timespec st_ctim;
+-	long __unused[3];
++	long _pad[3];
+ };
+diff --git a/arch/x86_64/kstat.h b/arch/x86_64/kstat.h
+index 5976c04e..2c099d29 100644
+--- a/arch/x86_64/kstat.h
++++ b/arch/x86_64/kstat.h
+@@ -18,5 +18,5 @@ struct kstat {
+ 	long st_mtime_nsec;
+ 	long st_ctime_sec;
+ 	long st_ctime_nsec;
+-	long __unused[3];
++	long _pad[3];
+ };
+--
+2.38.1
+

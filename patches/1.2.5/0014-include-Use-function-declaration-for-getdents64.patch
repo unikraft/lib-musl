@@ -1,0 +1,33 @@
+From 40feadbd7fb360033089787a60b7d58deaae4892 Mon Sep 17 00:00:00 2001
+Message-Id: <40feadbd7fb360033089787a60b7d58deaae4892.1669764551.git.razvand@unikraft.io>
+From: Razvan Deaconescu <razvand@unikraft.io>
+Date: Wed, 30 Nov 2022 01:27:36 +0200
+Subject: [PATCH] include: Use function declaration for getdents64()
+
+When defining `getdents64` as a macro aliasing `getdents`, the syscall
+shim layer complains.
+
+The declaration of `getdents64()`, combined with the `LFS64(getdents)`
+aliasing used in `src/dirent/__getdents.c` solves this.
+
+Signed-off-by: Razvan Deaconescu <razvand@unikraft.io>
+---
+ include/dirent.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/dirent.h b/include/dirent.h
+index 650ecf6..b72acaf 100644
+--- a/include/dirent.h
++++ b/include/dirent.h
+@@ -65,7 +65,7 @@ int versionsort(const struct dirent **, const struct dirent **);
+ #define versionsort64 versionsort
+ #define off64_t off_t
+ #define ino64_t ino_t
+-#define getdents64 getdents
++int getdents64(int, struct dirent64 *, size_t);
+ #endif
+
+ #ifdef __cplusplus
+--
+2.38.1
+

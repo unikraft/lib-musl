@@ -1,0 +1,26 @@
+From 64fc9d1ed189b546903e477b533cc73b8aa23187 Mon Sep 17 00:00:00 2001
+From: Gaulthier Gain <gaulthier.gain@uliege.be>
+Date: Thu, 17 Oct 2019 08:52:18 +0200
+Subject: [PATCH] Remove prototype for syscall from unistd.h
+
+With Unikraft shim layer, `syscall` is a macro and not a function.
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+---
+ include/unistd.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/include/unistd.h b/include/unistd.h
+index 09190af4..6ee0f1f1 100644
+--- a/include/unistd.h
++++ b/include/unistd.h
+@@ -177,7 +177,6 @@ void setusershell(void);
+ void endusershell(void);
+ char *getusershell(void);
+ int acct(const char *);
+-long syscall(long, ...);
+ int execvpe(const char *, char *const [], char *const []);
+ int issetugid(void);
+ int getentropy(void *, size_t);
+--
+2.38.1

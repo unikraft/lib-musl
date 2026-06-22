@@ -1,0 +1,90 @@
+From cab8414305bdbb07a9adfa72682d110fd7365da9 Mon Sep 17 00:00:00 2001
+From: Dragos Iulian Argint <dragosargint21@gmail.com>
+Date: Sun, 14 Aug 2022 20:14:33 +0300
+Subject: [PATCH] Change some things in pthread_create.c
+
+This patch replaces 2 function calls from musl with
+2 custom ones and introduces an additional size
+when allocating the map for a thread, `libc.tls_align`.
+It is needed because Unikraft demands that the tls be aligned.
+
+Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
+---
+ src/thread/pthread_create.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/src/thread/pthread_create.c b/src/thread/pthread_create.c
+index 6f187ee..d6dd4c9 100644
+--- a/src/thread/pthread_create.c
++++ b/src/thread/pthread_create.c
+@@ -7,6 +7,11 @@
+ #include <string.h>
+ #include <stddef.h>
+
++/*
++ * Unikraft version of `__unmapself()`. See `__uk_unmapself.c`
++ */
++void __uk_unmapself(void *base, size_t size);
++
+ static void dummy_0()
+ {
+ }
+@@ -149,10 +154,15 @@ _Noreturn void __pthread_exit(void *result)
+ 		 * processed above, so unregister it with the kernel. */
+ 		if (self->robust_list.off)
+ 			__syscall(SYS_set_robust_list, 0, 3*sizeof(long));
+-
+-		/* The following call unmaps the thread's stack mapping
+-		 * and then exits without touching the stack. */
+-		__unmapself(self->map_base, self->map_size);
++		/*
++		 * In the original code `__unampself()` was called here.
++		 * That call unmaps the thread's stack mapping and then
++		 * exits without touching the stack. However, we cannot
++		 * do this since we don't have a kernel stack. We use
++		 * a different approach and let the `idle` thread do the
++		 * cleaning. Please refer to the `__uk_unampself.c` file.
++		 */
++		__uk_unmapself(self->map_base, self->map_size);
+ 	}
+
+ 	/* Wake any joiner. */
+@@ -230,6 +240,11 @@ static void init_file_lock(FILE *f)
+ 	if (f && f->lock<0) f->lock = 0;
+ }
+
++/*
++ * Unikraft version of `__copy_tls()`
++ */
++void *__uk_copy_tls(unsigned char *);
++
+ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict attrp, void *(*entry)(void *), void *restrict arg)
+ {
+ 	int ret, c11 = (attrp == __ATTRP_C11_THREAD);
+@@ -283,7 +298,7 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+ 	} else {
+ 		guard = ROUND(attr._a_guardsize);
+ 		size = guard + ROUND(attr._a_stacksize
+-			+ libc.tls_size +  __pthread_tsd_size);
++			+ libc.tls_size  + libc.tls_align +  __pthread_tsd_size);
+ 	}
+
+ 	if (!tsd) {
+@@ -301,12 +316,12 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+ 		}
+ 		tsd = map + size - __pthread_tsd_size;
+ 		if (!stack) {
+-			stack = tsd - libc.tls_size;
++			stack = tsd - libc.tls_size - libc.tls_align;
+ 			stack_limit = map + guard;
+ 		}
+ 	}
+
+-	new = __copy_tls(tsd - libc.tls_size);
++	new = __uk_copy_tls(tsd - libc.tls_size);
+ 	new->map_base = map;
+ 	new->map_size = size;
+ 	new->stack = stack;
+--
+2.38.1
+
