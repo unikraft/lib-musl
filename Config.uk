@@ -29,6 +29,24 @@ menuconfig LIBMUSL
   select LIBSYSCALL_SHIM_NOWRAPPER
   select FPSIMD if ARCH_ARM_64
 
+choice
+    prompt "Musl Version"
+    default LIBMUSL_VERSION_1_2_5
+    help
+      Select the version of the Musl standard library.
+
+config LIBMUSL_VERSION_1_2_5
+    bool "1.2.5"
+
+config LIBMUSL_VERSION_1_2_3
+    bool "1.2.3"
+endchoice
+
+config LIBMUSL_VERSION
+    string
+    default "1.2.5" if LIBMUSL_VERSION_1_2_5
+    default "1.2.3" if LIBMUSL_VERSION_1_2_3
+
 if LIBMUSL
 
 config LIBMUSL_AIO

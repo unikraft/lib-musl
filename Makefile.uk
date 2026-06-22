@@ -64,12 +64,17 @@ $(eval $(call addlib_s,libmuslglue,$(CONFIG_LIBMUSL)))
 ################################################################################
 # Sources
 ################################################################################
-LIBMUSL_VERSION=1.2.5
+
+LIBMUSL_VERSION_STRING := $(subst ",,$(CONFIG_LIBMUSL_VERSION))
+
+LIBMUSL_VERSION=$(LIBMUSL_VERSION_STRING)
+
 LIBMUSL_URL=https://www.musl-libc.org/releases/musl-$(LIBMUSL_VERSION).tar.gz
-LIBMUSL_PATCHDIR=$(LIBMUSL_BASE)/patches
+
+LIBMUSL_PATCHDIR=$(LIBMUSL_BASE)/patches/$(LIBMUSL_VERSION_STRING)
+
 $(eval $(call fetch,libmusl,$(LIBMUSL_URL)))
 $(eval $(call patch,libmusl,$(LIBMUSL_PATCHDIR),musl-$(LIBMUSL_VERSION)))
-
 ################################################################################
 # Helpers
 ################################################################################
