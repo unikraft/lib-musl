@@ -1,0 +1,11 @@
+diff --git a/src/linux/prlimit.c b/src/linux/prlimit.c
+--- a/src/linux/prlimit.c	
++++ b/src/linux/prlimit.c	(date 1680775764222)
+@@ -1,6 +1,6 @@
+ #define _GNU_SOURCE
+-#include <sys/resource.h>
+ #include "syscall.h"
++#include <sys/resource.h>
+ 
+ #define FIX(x) do{ if ((x)>=SYSCALL_RLIM_INFINITY) (x)=RLIM_INFINITY; }while(0)
+ 

@@ -1,0 +1,32 @@
+From 23eaaa076aaabd44eb89aea6663db13b50618566 Mon Sep 17 00:00:00 2001
+From: Gaulthier Gain <gaulthier.gain@uliege.be>
+Date: Tue, 21 Jan 2020 16:33:44 +0100
+Subject: [PATCH] Update time.h to avoid conflicts with musl-imported
+ time.h
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+---
+ include/time.h | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/include/time.h b/include/time.h
+index 672b3fc..bbaff7d 100644
+--- a/include/time.h
++++ b/include/time.h
+@@ -1,5 +1,11 @@
+-#ifndef	_TIME_H
+-#define _TIME_H
++/*
++ * TODO: We need to include '<bits/alltypes>' otherwise 'locale_t'
++ * type is unknown. Check if there exists a cleaner approach.
++ */
++#include <bits/alltypes.h>
++
++#ifndef _UKTIME_TIME_H
++#define _UKTIME_TIME_H
+
+ #ifdef __cplusplus
+ extern "C" {
+--
+2.20.1
+

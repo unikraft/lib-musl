@@ -1,0 +1,31 @@
+From b97146b7c5633fc561692c21546f52b3c7164dbb Mon Sep 17 00:00:00 2001
+From: Dragos Iulian Argint <dragosargint21@gmail.com>
+Date: Sat, 7 May 2022 11:23:38 +0300
+Subject: [PATCH] lib-musl: Use `uk_syscall_r()` for `__syscall_cp_c()`
+
+If we have a system call number known only at runtime then
+we will use `uk_syscall_r()` from syscall shim. This
+makes a function call (not a binary system call), but knows
+how to demultiplex depending on the number given as a parameter.
+
+Signed-off-by: Dragos Iulian Argint <dragosargint21@gmail.com>
+---
+ src/thread/pthread_cancel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/thread/pthread_cancel.c b/src/thread/pthread_cancel.c
+index 2f9d5e9..044bd76 100644
+--- a/src/thread/pthread_cancel.c
++++ b/src/thread/pthread_cancel.c
+@@ -28,7 +28,7 @@ long __syscall_cp_c(syscall_arg_t nr,
+
+ 	if ((st=(self=__pthread_self())->canceldisable)
+ 	    && (st==PTHREAD_CANCEL_DISABLE || nr==SYS_close))
+-		return __syscall(nr, u, v, w, x, y, z);
++		return uk_syscall6_r(nr, u, v, w, x, y, z);
+
+ 	r = __syscall_cp_asm(&self->cancel, nr, u, v, w, x, y, z);
+ 	if (r==-EINTR && nr!=SYS_close && self->cancel &&
+--
+2.38.1
+

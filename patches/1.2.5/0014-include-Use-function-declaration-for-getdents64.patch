@@ -1,0 +1,47 @@
+From 40feadbd7fb360033089787a60b7d58deaae4892 Mon Sep 17 00:00:00 2001
+Message-Id: <40feadbd7fb360033089787a60b7d58deaae4892.1669764551.git.razvand@unikraft.io>
+From: Razvan Deaconescu <razvand@unikraft.io>
+Date: Wed, 30 Nov 2022 01:27:36 +0200
+Subject: [PATCH] include: Use function declaration for getdents64()
+
+When defining `getdents64` as a macro aliasing `getdents`, the syscall
+shim layer complains.
+
+The declaration of `getdents64()`, combined with the `LFS64(getdents)`
+aliasing used in `src/dirent/__getdents.c` solves this.
+
+Also remove the _LARGEFILE64_SOURCE guard around the 64-bit aliases so
+that readdir64, readdir64_r, dirent64, and friends are available
+unconditionally. The Unikraft vfscore uses these symbols without
+defining _LARGEFILE64_SOURCE.
+
+Signed-off-by: Razvan Deaconescu <razvand@unikraft.io>
+---
+ include/dirent.h | 4 ++--
+ 1 file changed, 2 insertion(+), 2 deletions(-)
+
+diff --git a/include/dirent.h b/include/dirent.h
+index 650ecf6..b72acaf 100644
+--- a/include/dirent.h
++++ b/include/dirent.h
+@@ -56,16 +56,16 @@ int versionsort(const struct dirent **, const struct dirent **);
+ int versionsort(const struct dirent **, const struct dirent **);
+ #endif
+ 
+-#if defined(_LARGEFILE64_SOURCE)
+ #define dirent64 dirent
+ #define readdir64 readdir
+ #define readdir64_r readdir_r
+ #define scandir64 scandir
+ #define alphasort64 alphasort
+ #define versionsort64 versionsort
+ #define off64_t off_t
+ #define ino64_t ino_t
+-#define getdents64 getdents
++#if defined(_LARGEFILE64_SOURCE)
++int getdents64(int, struct dirent64 *, size_t);
+ #endif
+ 
+ #ifdef __cplusplus
+-- 
+2.38.1

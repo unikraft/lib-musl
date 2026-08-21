@@ -1,0 +1,26 @@
+From 0a1ffcddc9c4e3dfb251b8ccf153821448f97048 Mon Sep 17 00:00:00 2001
+From: Gaulthier Gain <gaulthier.gain@uliege.be>
+Date: Sat, 25 Jan 2020 15:45:06 +0100
+Subject: [PATCH] Update __syscall_cp to use syscalls from syscall shim layer
+
+Signed-off-by: Gaulthier Gain <gaulthier.gain@uliege.be>
+---
+ src/thread/__syscall_cp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/thread/__syscall_cp.c b/src/thread/__syscall_cp.c
+index 42a0167..b0438af 100644
+--- a/src/thread/__syscall_cp.c
++++ b/src/thread/__syscall_cp.c
+@@ -7,7 +7,7 @@ static long sccp(syscall_arg_t nr,
+                  syscall_arg_t u, syscall_arg_t v, syscall_arg_t w,
+                  syscall_arg_t x, syscall_arg_t y, syscall_arg_t z)
+ {
+-	return __syscall(nr, u, v, w, x, y, z);
++	return (uk_syscall)(nr, u, v, w, x, y, z);
+ }
+
+ weak_alias(sccp, __syscall_cp_c);
+--
+2.38.1
+

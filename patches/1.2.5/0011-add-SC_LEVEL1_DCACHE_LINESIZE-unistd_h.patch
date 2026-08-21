@@ -1,0 +1,26 @@
+From 1ea6a69be49facc99b969831a4e27e954ae05da5 Mon Sep 17 00:00:00 2001
+From: gaulthier gain <gaulthier.gain@uliege.be>
+Date: Tue, 6 Oct 2020 07:55:19 +0000
+Subject: [PATCH] Add _SC_LEVEL1_DCACHE_LINESIZE to unistd
+
+Signed-off-by: gaulthier gain <gaulthier.gain@uliege.be>
+---
+ include/unistd.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/unistd.h b/include/unistd.h
+index 3e6356a..31729fe 100644
+--- a/include/unistd.h
++++ b/include/unistd.h
+@@ -258,7 +258,7 @@ pid_t gettid(void);
+
+ #include <bits/posix.h>
+
+-
++#define _SC_LEVEL1_DCACHE_LINESIZE 130
+
+ #define _PC_LINK_MAX	0
+ #define _PC_MAX_CANON	1
+--
+2.38.1
+
