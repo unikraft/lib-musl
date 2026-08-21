@@ -11,21 +11,20 @@ known only at runtime.
 
 Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
 ---
- src/internal/syscall.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ src/internal/syscall.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/src/internal/syscall.h b/src/internal/syscall.h
 index 9419ea9..83fa584 100644
 --- a/src/internal/syscall.h
 +++ b/src/internal/syscall.h
-@@ -45,8 +45,8 @@ long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
+@@ -45,8 +45,7 @@ long __syscall_ret(unsigned long), __syscall(uk_syscall_arg_t, ...),
  static inline long __alt_socketcall(int sys, int sock, int cp, long a, long b, long c, long d, long e, long f)
  {
  	long r;
 -	if (cp) r = __syscall_cp(sys, a, b, c, d, e, f);
 -	else r = __syscall(sys, a, b, c, d, e, f);
-+	if (cp) r = uk_syscall_r(sys, a, b, c, d, e, f);
-+	else r = uk_syscall_r(sys, a, b, c, d, e, f);
++	r = uk_syscall_r(sys, a, b, c, d, e, f);
  	if (r != -ENOSYS) return r;
  #ifdef SYS_socketcall
  	if (cp) r = __syscall_cp(SYS_socketcall, sock, ((long[6]){a, b, c, d, e, f}));

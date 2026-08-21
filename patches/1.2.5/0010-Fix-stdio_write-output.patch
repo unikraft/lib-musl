@@ -17,7 +17,7 @@ index d2d8947..cae0ea9 100644
  		}
  		rem -= cnt;
 -		if (cnt > iov[0].iov_len) {
-+                if (cnt >= iov[0].iov_len) {
++		if (cnt >= iov[0].iov_len) {
  			cnt -= iov[0].iov_len;
  			iov++; iovcnt--;
  		}
