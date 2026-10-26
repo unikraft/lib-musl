@@ -14,20 +14,28 @@ definitions for the `__NR_` macros needed by some libraries.
 
 Signed-off-by: Eduard Vintilă <eduard.vintila47@gmail.com>
 ---
- include/sys/syscall.h | 3 +++
- 1 file changed, 3 insertions(+)
+ include/sys/syscall.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/include/sys/syscall.h b/include/sys/syscall.h
 index 918de59..de68f07 100644
 --- a/include/sys/syscall.h
 +++ b/include/sys/syscall.h
-@@ -2,5 +2,8 @@
+@@ -2,5 +2,16 @@
  #define _SYS_SYSCALL_H
  
  #include <uk/bits/syscall_nrs.h>
 +#include <uk/bits/syscall_nrs2.h>
 +
++#ifdef __cplusplus
++extern "C" {
++#endif
++
 +long syscall(long n, ...);
++
++#ifdef __cplusplus
++}
++#endif
  
  #endif
 -- 
